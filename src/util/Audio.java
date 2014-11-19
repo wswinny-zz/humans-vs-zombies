@@ -79,7 +79,7 @@ public class Audio {
 	
 	//Plays a sound effect when the player dies (loses)
 	public void playDeath(){
-		
+	
 	}
 	
 	//Plays the background music
@@ -87,8 +87,15 @@ public class Audio {
 		
 	}
 	
+	//Starts the song that is provided to the function
 	private void startMusic(AudioInputStream in){
 		try {
+			//If a song is already open, close it
+			if(currentMusic.isActive()){
+				currentMusic.close();
+			}
+			
+			//Start the new song and allow it to loop
 			currentMusic.open(in);
 			currentMusic.start();
 			currentMusic.loop(Clip.LOOP_CONTINUOUSLY);
@@ -128,7 +135,13 @@ public class Audio {
 	
 	//Starts the music that plays when the player dies (loses)
 	public void startDeathMusic(){
-		
+		AudioInputStream in;
+		try {
+			in = AudioSystem.getAudioInputStream(Audio.class.getResource("/death.wav"));
+			startMusic(in);
+		} catch (UnsupportedAudioFileException | IOException e) {
+			System.out.println("\nError: Death music failed to play.\n");
+		}
 	}
 	
 }
