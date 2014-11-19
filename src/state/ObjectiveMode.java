@@ -1,5 +1,8 @@
 package state;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+
 /************************************************************************
  * Class: ObjectiveMode														
  * Author: William Swinny											
@@ -8,7 +11,40 @@ package state;
  * 			of everything on the screen and draw them in the appropriate
  * 			order															
  ************************************************************************/
-public class ObjectiveMode
+public class ObjectiveMode extends State
 {
-	
+	public ObjectiveMode()
+	{
+		
+	}
+
+	@Override
+	public void init()
+	{
+		
+	}
+
+	@Override
+	public void draw()
+	{
+		
+	}
+
+	@Override
+	public void mouseTriggered(MouseEvent e)
+	{
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e)
+	{
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e)
+	{
+		
+	}
 }
