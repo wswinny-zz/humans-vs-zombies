@@ -28,17 +28,35 @@ public class StateManager implements KeyListener, MouseListener, MouseMotionList
 	
 	public void switchState(int state)
 	{
+		if(state < 0 || state >= this.states.size())
+			return;
 		
+		this.currentState = state;
 	}
 	
-	public void registerState(State state)
+	public int registerState(State state)
 	{
-		
+		this.states.add(state);
+		return this.states.size() - 1; //the number of the state you just registered
 	}
 	
-	public void removeState(State state)
+	public void incrementState()
 	{
+		if(this.currentState + 1 >= this.states.size())
+			return;
+			
+		this.currentState++;
+	}
+	
+	public void removeState(int state)
+	{
+		this.states.remove(state);
 		
+		if(this.currentState == state)
+			this.currentState = -1;
+		
+		if(this.currentState > state)
+			this.currentState--;
 	}
 
 	public void draw(Graphics2D g)
