@@ -29,6 +29,11 @@ public class GamePanel extends JPanel{
 		this.img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		this.stateManager = new StateManager();
 		this.running = true;
+		
+		//Add a mouse listener and key listener to the panel
+		this.addMouseListener(this.stateManager);
+		this.addMouseMotionListener(this.stateManager);
+		this.addKeyListener(this.stateManager);
 	}
 	
 	//Draw the graphics
