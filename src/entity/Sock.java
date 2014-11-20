@@ -5,6 +5,9 @@ package entity;
  * 																		
  * Purpose: Acts as a sock the player can throw																	
  ************************************************************************/
-public class Sock {
-
+public class Sock extends Entity{
+	//Constructor
+	public Sock(){
+		
+	}
 }

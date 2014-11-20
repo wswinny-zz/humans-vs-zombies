@@ -5,6 +5,9 @@ package entity;
  * 																		
  * Purpose: Acts as an objective the player must reach																		
  ************************************************************************/
-public class Objective {
-	
+public class Objective extends Entity{
+	//Constructor
+	public Objective(){
+		
+	}
 }

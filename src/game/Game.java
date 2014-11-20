@@ -13,8 +13,8 @@ import util.Audio;
  * Purpose: Sets up the initial functionality for the game																				
  ************************************************************************/
 public class Game {
-	private static JFrame frame;
-	private static GamePanel gamePanel;
+	private JFrame frame;
+	private GamePanel gamePanel;
 	
 	public static void main(String[] args) {
 		//Set the look and feel of the application to that of the user's system
@@ -34,7 +34,6 @@ public class Game {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(true);
 		frame.setSize(800, 600);
-		frame.setLocationRelativeTo(null);
 				
 		//Set the icon image for the application
 		ImageIcon img = new ImageIcon("img\\icon.png");
@@ -43,6 +42,8 @@ public class Game {
 		//Prepare the gamePanel and add it to the frame
 		gamePanel = new GamePanel();
 		frame.setContentPane(gamePanel);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 				
 		//Audio.getInstance().startMenuMusic();
