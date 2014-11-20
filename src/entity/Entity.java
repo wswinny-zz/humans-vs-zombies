@@ -7,6 +7,7 @@ package entity;
  * 			on the map.																	
  ************************************************************/
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public abstract class Entity {
@@ -62,5 +63,9 @@ public abstract class Entity {
 	}
 	public void setHeight(int height) {
 		this.height = height;
+	}
+	
+	public void draw(Graphics g){
+		
 	}
 }

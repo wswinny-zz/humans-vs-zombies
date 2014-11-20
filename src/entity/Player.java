@@ -1,4 +1,11 @@
 package entity;
+
+import game.GamePanel;
+
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+
 /************************************************************
  * Player														
  * Author: Aaron Hitchcock											
@@ -27,6 +34,11 @@ public class Player extends Entity {
 		super.setX((int)xTemp);
 		super.setY((int)yTemp);
 	}
+	
+	@Override
+	public void draw(Graphics g){
+		g.drawOval(GamePanel.WIDTH/2-4, GamePanel.HEIGHT/2-4, 8, 8);
+	}
 
 	public int getSpeedMultiplier() {
 		return speedMultiplier;
@@ -34,5 +46,21 @@ public class Player extends Entity {
 
 	public void setSpeedMultiplier(int speedMultiplier) {
 		this.speedMultiplier = speedMultiplier;
+	}
+	
+	public void mouseClicked(MouseEvent e){
+		
+	}
+	
+	public void mouseMoved(MouseEvent e){
+		
+	}
+	
+	public void keyPressed(KeyEvent e){
+		
+	}
+	
+	public void keyReleased(KeyEvent e){
+		
 	}
 }
