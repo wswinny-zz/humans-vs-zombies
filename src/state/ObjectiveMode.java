@@ -1,7 +1,13 @@
 package state;
 
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
+import map.Map;
+import entity.Player;
+import entity.Zombie;
 
 /************************************************************************
  * Class: ObjectiveMode														
@@ -13,21 +19,35 @@ import java.awt.event.MouseEvent;
  ************************************************************************/
 public class ObjectiveMode extends State
 {
+	private Map map;
+	private Player player;
+	private ArrayList<Zombie> zombies;
+	
 	public ObjectiveMode()
 	{
+		this.map = new Map(32);
 		
+		this.init();
 	}
 
 	@Override
 	public void init()
 	{
-		
+		this.map.loadTileset("/tiles.png");
+		this.map.loadMap("/map.map");
 	}
 
 	@Override
-	public void draw()
+	public void draw(Graphics g)
 	{
-		
+		this.map.draw(g);
+	}
+	
+	@Override
+	public void update()
+	{
+		//get pos from player and then set map pos
+		this.map.setPosition(500, 500);
 	}
 
 	@Override

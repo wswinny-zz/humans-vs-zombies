@@ -1,5 +1,6 @@
 package state;
 
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
@@ -14,7 +15,9 @@ public abstract class State
 {
 	public abstract void init();
 	
-	public abstract void draw();
+	public abstract void draw(Graphics g);
+	
+	public abstract void update();
 	
 	public abstract void mouseTriggered(MouseEvent e);
 	
