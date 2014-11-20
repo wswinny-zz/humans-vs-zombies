@@ -114,8 +114,6 @@ public class Map
 				if(col > this.numCols)
 					break;
 				
-				System.out.println("X: " + (x - (this.x % this.tileSize)) + " Y: " + (y - (this.y % this.tileSize)) + " COL OFF: " + this.colOffset + " ROW OFF: " + this.rowOffset);
-				
 				try
 				{
 					g.drawImage(this.visibleMap[row][col].getImage(), x - (this.x % this.tileSize), y - (this.y % this.tileSize), null);
@@ -129,8 +127,6 @@ public class Map
 	{
 		this.x = x - (GamePanel.WIDTH / 2);
 		this.y = y - (GamePanel.HEIGHT / 2);
-		
-		//this.fixBounds();
 		
 		this.colOffset = this.x / this.tileSize;
 		this.rowOffset = this.y / this.tileSize;
