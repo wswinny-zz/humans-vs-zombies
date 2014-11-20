@@ -1,4 +1,10 @@
 package entity;
+/************************************************************
+ * Player														
+ * Author: Aaron Hitchcock											
+ * 																		
+ * Purpose: Class that manages the singleton player.																	
+ ************************************************************/
 
 public class Player extends Entity {
 	private int speedMultiplier;
@@ -9,6 +15,10 @@ public class Player extends Entity {
 	
 	public static Player getInstance(){
 		return instance;
+	}
+	
+	public void update(){
+		
 	}
 
 	public int getSpeedMultiplier() {
