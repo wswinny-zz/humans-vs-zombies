@@ -11,14 +11,21 @@ public class Player extends Entity {
 	
 	private static final Player instance = new Player();
 	
-	private Player(){}
+	private Player(){
+		this.setXVel(1);
+		this.setYVel(1);
+	}
 	
 	public static Player getInstance(){
 		return instance;
 	}
 	
 	public void update(){
+		double xTemp = this.getXVel() + this.getX();
 		
+		double yTemp = this.getYVel() + this.getY();
+		super.setX((int)xTemp);
+		super.setY((int)yTemp);
 	}
 
 	public int getSpeedMultiplier() {

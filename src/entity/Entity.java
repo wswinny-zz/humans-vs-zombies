@@ -13,8 +13,8 @@ public abstract class Entity {
 	private int x;
 	private int y;
 	
-	private int xVel;
-	private int yVel;
+	private double xVel;
+	private double yVel;
 	
 	private BufferedImage img;
 	
@@ -33,16 +33,16 @@ public abstract class Entity {
 	public void setY(int y) {
 		this.y = y;
 	}
-	public int getXVel() {
+	public double getXVel() {
 		return xVel;
 	}
-	public void setXVel(int xVel) {
+	public void setXVel(double xVel) {
 		this.xVel = xVel;
 	}
-	public int getYVel() {
+	public double getYVel() {
 		return yVel;
 	}
-	public void setYVel(int yVel) {
+	public void setYVel(double yVel) {
 		this.yVel = yVel;
 	}
 	public BufferedImage getImg() {
