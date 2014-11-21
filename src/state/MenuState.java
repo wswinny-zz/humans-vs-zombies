@@ -1,5 +1,6 @@
 package state;
 
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
@@ -24,7 +25,7 @@ public class MenuState extends State
 	}
 
 	@Override
-	public void draw()
+	public void draw(Graphics g)
 	{
 		// TODO Auto-generated method stub
 		

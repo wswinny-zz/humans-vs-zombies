@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import map.Map;
 import entity.Player;
 import entity.Zombie;
+import game.GamePanel;
 
 /************************************************************************
  * Class: ObjectiveMode														
@@ -35,19 +36,24 @@ public class ObjectiveMode extends State
 	{
 		this.map.loadTileset("/tiles.png");
 		this.map.loadMap("/map.map");
+		
+		this.player = Player.getInstance();
 	}
 
 	@Override
 	public void draw(Graphics g)
 	{
 		this.map.draw(g);
+		this.player.draw(g);
 	}
 	
 	@Override
 	public void update()
 	{
-		//get pos from player and then set map pos
-		this.map.setPosition(500, 500);
+		this.player.update();
+		this.map.setPosition(this.player.getX(), this.player.getY());
+		
+		System.out.println("X: " + this.player.getX() + " Y: " + this.player.getY());
 	}
 
 	@Override
