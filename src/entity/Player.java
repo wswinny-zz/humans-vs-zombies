@@ -110,35 +110,35 @@ public class Player extends Entity {
 	}
 	
 	public void keyPressed(KeyEvent e){
-		switch(e.getKeyChar()){
+		switch(Character.toUpperCase(e.getKeyChar())){
 		case 'W':
 			setWKeyDown(true);
 			break;
 		case 'A':
-			setWKeyDown(true);
+			setAKeyDown(true);
 			break;
 		case 'S':
-			setWKeyDown(true);
+			setSKeyDown(true);
 			break;
 		case 'D':
-			setWKeyDown(true);
+			setDKeyDown(true);
 			break;
 		}
 	}
 	
 	public void keyReleased(KeyEvent e){
-		switch(e.getKeyChar()){
+		switch(Character.toUpperCase(e.getKeyChar())){
 		case 'W':
 			setWKeyDown(false);
 			break;
 		case 'A':
-			setWKeyDown(false);
+			setAKeyDown(false);
 			break;
 		case 'S':
-			setWKeyDown(false);
+			setSKeyDown(false);
 			break;
 		case 'D':
-			setWKeyDown(false);
+			setDKeyDown(false);
 			break;
 		}
 	}
