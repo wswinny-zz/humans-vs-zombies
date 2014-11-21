@@ -7,7 +7,7 @@ package entity;
  ************************************************************/
 
 public class Zombie extends Entity {
-	private int speedMultipler;
+	private double speedMultipler;
 	
 	public Zombie(){
 		
@@ -15,5 +15,13 @@ public class Zombie extends Entity {
 	
 	public void update(){
 		
+	}
+
+	public double getSpeedMultipler() {
+		return speedMultipler;
+	}
+
+	public void setSpeedMultipler(double speedMultipler) {
+		this.speedMultipler = speedMultipler;
 	}
 }

@@ -24,9 +24,10 @@ public class Player extends Entity {
 	private static final Player instance = new Player();
 	
 	private Player(){
-		this.setXVel(1);
-		this.setYVel(1);
+		this.setXVel(0);
+		this.setYVel(0);
 		this.setVector(1);
+		this.setSpeedMultiplier(1.0);
 		
 		setWKeyDown(false);
 		setAKeyDown(false);
@@ -39,18 +40,49 @@ public class Player extends Entity {
 	}
 	
 	public void update(){
-		//Calculate vector based on the keys pressed
-		//
+		//If w key and a or d key is down
+		//we are moving diagonally
+		if(WKeyDown && (AKeyDown || DKeyDown)){
+			this.setVector(.5);
+			this.setYVel(-1);
+			//if the a key is down the velocity is pos
+			if(AKeyDown){
+				this.setXVel(-1);
+			}else{
+				this.setXVel(1);
+			}
+		//If s key and a or d key is down
+		//we are moving diagonally
+		}else if (SKeyDown && (AKeyDown || DKeyDown)){
+			this.setVector(.5);
+			this.setYVel(1);
+			if(AKeyDown){
+				this.setXVel(-1);
+			}else{
+				this.setXVel(1);
+			}
+		//If just s or w is down
+		}else if(SKeyDown && !WKeyDown){
+			this.setYVel(1);
+			this.setVector(0);
+		}else if(WKeyDown && !SKeyDown){
+			this.setYVel(-1);
+			this.setVector(0);
+		}
 		
+		//Calculate default velcity
 		double velTempX = (this.getXVel()*super.getVector());
 		double velTempY = (this.getYVel()*(1-super.getVector()));
 		
+		//work in the speed multiplier
 		double multTempX = velTempX * speedMultiplier;
 		double multTempY = velTempY * speedMultiplier;
 		
+		//calc final pos
 		double xTemp = multTempX + this.getX();
 		double yTemp = multTempY + this.getY();
 		
+		//set
 		super.setX((int)xTemp);
 		super.setY((int)yTemp);
 	}
