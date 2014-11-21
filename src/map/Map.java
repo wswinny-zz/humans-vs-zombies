@@ -26,6 +26,11 @@ public class Map
 	private int x; //x pixel of map image
 	private int y; //y pixel of map image
 	
+	private int xMin;
+	private int xMax;
+	private int yMin;
+	private int yMax;
+	
 	// map and tile stuff
 	private int tileSize;
 	private int numRows;
@@ -43,6 +48,9 @@ public class Map
 	public Map(int tileSize)
 	{
 		this.tileSize = tileSize;
+		
+		this.xMin = 0;
+		this.yMin = 0;
 		
 		this.numRowsToDraw = GamePanel.HEIGHT / tileSize + 2;
 		this.numColsToDraw = GamePanel.WIDTH / tileSize + 2;
@@ -83,6 +91,9 @@ public class Map
 			this.numCols = Integer.parseInt(WH[0]);
 			this.numRows = Integer.parseInt(WH[1]);
 			
+			this.xMax = (this.numCols * this.tileSize) - GamePanel.WIDTH;
+			this.yMax = (this.numRows * this.tileSize) - GamePanel.HEIGHT;
+			
 			this.visibleMap = new Tile[this.numRows][this.numCols];
 			
 			String line;
@@ -118,7 +129,10 @@ public class Map
 				{
 					g.drawImage(this.visibleMap[row][col].getImage(), x - (this.x % this.tileSize), y - (this.y % this.tileSize), null);
 				}
-				catch(Exception e) {}
+				catch(Exception e) 
+				{
+					
+				}
 			}
 		}
 	}
@@ -128,7 +142,24 @@ public class Map
 		this.x = x - (GamePanel.WIDTH / 2);
 		this.y = y - (GamePanel.HEIGHT / 2);
 		
+		this.checkBounds();
+		
 		this.colOffset = this.x / this.tileSize;
 		this.rowOffset = this.y / this.tileSize;
+	}
+	
+	public void checkBounds()
+	{
+		if(this.x <= this.xMin)
+			this.x = this.xMin;
+		
+		if(this.y <= this.yMin)
+			this.y = this.yMin;
+		
+		if(this.x >= this.xMax)
+			this.x = this.xMax;
+		
+		if(this.y >= this.yMax)
+			this.y = this.yMax;
 	}
 }
