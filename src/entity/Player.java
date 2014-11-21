@@ -40,39 +40,45 @@ public class Player extends Entity {
 	}
 	
 	public void update(){
-		//If w key and a or d key is down
-		//we are moving diagonally
-		if(WKeyDown && (AKeyDown || DKeyDown)){
+		//System.out.println("SKey:" + SKeyDown + " WKey:" + WKeyDown + " AKey:" + AKeyDown + " DKey:" + DKeyDown);
+		
+		//If W or S and A or D
+		//Vector is not being used on player
+		//because even though its normalized
+		//it makes the movement choppier
+		if((WKeyDown || SKeyDown) && (AKeyDown || DKeyDown)){
 			this.setVector(.5);
-			this.setYVel(-1);
-			//if the a key is down the velocity is pos
-			if(AKeyDown){
-				this.setXVel(-1);
-			}else{
-				this.setXVel(1);
-			}
-		//If s key and a or d key is down
-		//we are moving diagonally
-		}else if (SKeyDown && (AKeyDown || DKeyDown)){
-			this.setVector(.5);
-			this.setYVel(1);
-			if(AKeyDown){
-				this.setXVel(-1);
-			}else{
-				this.setXVel(1);
-			}
-		//If just s or w is down
-		}else if(SKeyDown && !WKeyDown){
-			this.setYVel(1);
+		}else if(SKeyDown || WKeyDown && !(AKeyDown || DKeyDown)){
 			this.setVector(0);
-		}else if(WKeyDown && !SKeyDown){
-			this.setYVel(-1);
-			this.setVector(0);
+		}else{
+			this.setVector(1);
 		}
 		
-		//Calculate default velcity
-		double velTempX = (this.getXVel()*super.getVector());
-		double velTempY = (this.getYVel()*(1-super.getVector()));
+		
+		if(AKeyDown && !DKeyDown){
+			this.setXVel(-1);
+		}else if(DKeyDown && !AKeyDown){
+			this.setXVel(1);
+		}else{
+			this.setXVel(0);
+		}
+		
+		
+		if(WKeyDown && !SKeyDown){
+			this.setYVel(-1);
+		}else if(SKeyDown && !WKeyDown){
+			this.setYVel(1);
+		}else{
+			this.setYVel(0);
+		}
+		
+		
+		
+		//Calculate default velocity
+		double velTempX = (this.getXVel());/**this.getVector());*/
+		double velTempY = (this.getYVel());/**(1-this.getVector()));*/
+		
+		System.out.println("x:"+velTempX + " y:" + velTempY);
 		
 		//work in the speed multiplier
 		double multTempX = velTempX * speedMultiplier;
@@ -83,8 +89,8 @@ public class Player extends Entity {
 		double yTemp = multTempY + this.getY();
 		
 		//set
-		super.setX((int)xTemp);
-		super.setY((int)yTemp);
+		super.setX(xTemp);
+		super.setY(yTemp);
 	}
 	
 	@Override
@@ -110,6 +116,7 @@ public class Player extends Entity {
 	}
 	
 	public void keyPressed(KeyEvent e){
+		//System.out.println(""+e.getKeyChar() + " Pressed!");
 		switch(Character.toUpperCase(e.getKeyChar())){
 		case 'W':
 			setWKeyDown(true);
@@ -127,6 +134,7 @@ public class Player extends Entity {
 	}
 	
 	public void keyReleased(KeyEvent e){
+		//System.out.println(""+e.getKeyChar() + " Released!");
 		switch(Character.toUpperCase(e.getKeyChar())){
 		case 'W':
 			setWKeyDown(false);

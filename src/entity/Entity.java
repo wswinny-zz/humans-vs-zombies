@@ -13,8 +13,8 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 public abstract class Entity {
-	private int x;
-	private int y;
+	private double x;
+	private double y;
 	
 	private double vector;
 	private double xVel;
@@ -25,16 +25,16 @@ public abstract class Entity {
 	private int width;
 	private int height;
 	
-	public int getX() {
+	public double getX() {
 		return x;
 	}
-	public void setX(int x) {
+	public void setX(double x) {
 		this.x = x;
 	}
-	public int getY() {
+	public double getY() {
 		return y;
 	}
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 	public double getXVel() {
@@ -69,7 +69,7 @@ public abstract class Entity {
 	}
 	
 	public Point getPosition(){
-		return new Point(x,y);
+		return new Point((int)x,(int)y);
 	}
 	
 	public void setPosition(Point p){
