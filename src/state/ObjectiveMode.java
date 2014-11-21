@@ -53,24 +53,27 @@ public class ObjectiveMode extends State
 		this.player.update();
 		this.map.setPosition(this.player.getX(), this.player.getY());
 		
-		System.out.println("X: " + this.player.getX() + " Y: " + this.player.getY());
+		System.out.println("Player X: " + this.player.getX() + " Player Y: " + this.player.getY());
 	}
 
 	@Override
 	public void mouseTriggered(MouseEvent e)
 	{
-		
+		if(e.getID() == MouseEvent.MOUSE_MOVED)
+			Player.getInstance().mouseMoved(e);
+		else if(e.getID() == MouseEvent.MOUSE_CLICKED)
+			Player.getInstance().mouseClicked(e);
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e)
 	{
-		
+		Player.getInstance().keyPressed(e);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e)
 	{
-		
+		Player.getInstance().keyReleased(e);
 	}
 }
