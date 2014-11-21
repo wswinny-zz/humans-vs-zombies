@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import map.Map;
 import entity.Player;
 import entity.Zombie;
-import game.GamePanel;
 
 /************************************************************************
  * Class: ObjectiveMode														
@@ -51,9 +50,7 @@ public class ObjectiveMode extends State
 	public void update()
 	{
 		this.player.update();
-		this.map.setPosition(this.player.getX(), this.player.getY());
-		
-		System.out.println("Player X: " + this.player.getX() + " Player Y: " + this.player.getY());
+		this.map.setPosition((int)this.player.getX(), (int)this.player.getY());
 	}
 
 	@Override
