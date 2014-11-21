@@ -38,12 +38,11 @@ public class GamePanel extends JPanel{
 	
 	//Draw the graphics
 	public void draw(){
-		//stateManager.draw(this.img.getGraphics());
-		repaint();
+		stateManager.draw(this.img.getGraphics());
 	}
 	
 	public void update(){
-		//stateManager.update();
+		stateManager.update();
 	}
 	
 	//Paint the image onto the component

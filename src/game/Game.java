@@ -42,6 +42,7 @@ public class Game {
 		//Prepare the gamePanel and add it to the frame
 		gamePanel = new GamePanel();
 		frame.setContentPane(gamePanel);
+		frame.addKeyListener(gamePanel.getKeyListeners()[0]);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
