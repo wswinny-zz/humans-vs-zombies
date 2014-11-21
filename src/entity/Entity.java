@@ -1,4 +1,5 @@
 package entity;
+
 /************************************************************
  * Entity														
  * Author: Aaron Hitchcock											
@@ -8,12 +9,14 @@ package entity;
  ************************************************************/
 
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 public abstract class Entity {
 	private int x;
 	private int y;
 	
+	private double vector;
 	private double xVel;
 	private double yVel;
 	
@@ -65,7 +68,22 @@ public abstract class Entity {
 		this.height = height;
 	}
 	
+	public Point getPosition(){
+		return new Point(x,y);
+	}
+	
+	public void setPosition(Point p){
+		this.setX(p.x);
+		this.setY(p.y);
+	}
+	
 	public void draw(Graphics g){
 		
+	}
+	public double getVector() {
+		return vector;
+	}
+	public void setVector(double vector) {
+		this.vector = vector;
 	}
 }
