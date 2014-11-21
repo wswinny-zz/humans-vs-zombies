@@ -1,5 +1,6 @@
 package map;
 
+import entity.Player;
 import game.GamePanel;
 
 import java.awt.Graphics;
@@ -151,15 +152,27 @@ public class Map
 	public void checkBounds()
 	{
 		if(this.x <= this.xMin)
+		{
 			this.x = this.xMin;
+			Player.getInstance().setX(this.x + (GamePanel.WIDTH / 2));
+		}
 		
 		if(this.y <= this.yMin)
+		{
 			this.y = this.yMin;
+			Player.getInstance().setY(this.y + (GamePanel.HEIGHT / 2));
+		}
 		
 		if(this.x >= this.xMax)
+		{
 			this.x = this.xMax;
+			Player.getInstance().setX(this.x + (GamePanel.WIDTH / 2));
+		}
 		
 		if(this.y >= this.yMax)
+		{
 			this.y = this.yMax;
+			Player.getInstance().setY(this.y + (GamePanel.HEIGHT / 2));
+		}
 	}
 }
