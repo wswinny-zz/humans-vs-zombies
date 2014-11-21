@@ -91,6 +91,9 @@ public class Map
 			this.numCols = Integer.parseInt(WH[0]);
 			this.numRows = Integer.parseInt(WH[1]);
 			
+			this.xMax = (this.numCols * this.tileSize) - GamePanel.WIDTH;
+			this.yMax = (this.numRows * this.tileSize) - GamePanel.HEIGHT;
+			
 			this.visibleMap = new Tile[this.numRows][this.numCols];
 			
 			String line;
@@ -152,5 +155,11 @@ public class Map
 		
 		if(this.y <= this.yMin)
 			this.y = this.yMin;
+		
+		if(this.x >= this.xMax)
+			this.x = this.xMax;
+		
+		if(this.y >= this.yMax)
+			this.y = this.yMax;
 	}
 }
