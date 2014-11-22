@@ -19,26 +19,26 @@ public class StateManager implements KeyListener, MouseListener, MouseMotionList
 	public static final int MENU_STATE = 0;
 	public static final int OBJECTIVE_STATE = 1;
 	
-	private State currentState;
+	private static State currentState;
 	
 	public StateManager()
 	{
-		this.setState(StateManager.OBJECTIVE_STATE);
+		StateManager.setState(StateManager.MENU_STATE);
 	}
 	
-	public void setState(int state)
+	public static void setState(int state)
 	{
 		if(state == StateManager.MENU_STATE)
-			this.currentState = new MenuState();
+			currentState = new MenuState();
 		else if(state == StateManager.OBJECTIVE_STATE)
-			this.currentState = new ObjectiveMode();
+			currentState = new ObjectiveMode();
 	}
 
 	public void draw(Graphics g)
 	{
 		try
 		{
-			this.currentState.draw(g);
+			StateManager.currentState.draw(g);
 		}
 		catch(Exception e)
 		{
@@ -50,7 +50,7 @@ public class StateManager implements KeyListener, MouseListener, MouseMotionList
 	{
 		try
 		{
-			this.currentState.update();
+			StateManager.currentState.update();
 		}
 		catch(Exception e)
 		{
@@ -60,51 +60,51 @@ public class StateManager implements KeyListener, MouseListener, MouseMotionList
 	
 	public void mouseDragged(MouseEvent e)
 	{
-		this.currentState.mouseTriggered(e);
+		StateManager.currentState.mouseTriggered(e);
 	}
 
 	public void mouseMoved(MouseEvent e)
 	{
-		this.currentState.mouseTriggered(e);
+		StateManager.currentState.mouseTriggered(e);
 	}
 
 	public void mouseClicked(MouseEvent e)
 	{
-		this.currentState.mouseTriggered(e);
+		StateManager.currentState.mouseTriggered(e);
 	}
 
 	public void mouseEntered(MouseEvent e)
 	{
-		this.currentState.mouseTriggered(e);
+		StateManager.currentState.mouseTriggered(e);
 	}
 
 	public void mouseExited(MouseEvent e)
 	{
-		this.currentState.mouseTriggered(e);
+		StateManager.currentState.mouseTriggered(e);
 	}
 
 	public void mousePressed(MouseEvent e)
 	{
-		this.currentState.mouseTriggered(e);
+		StateManager.currentState.mouseTriggered(e);
 	}
 
 	public void mouseReleased(MouseEvent e)
 	{
-		this.currentState.mouseTriggered(e);
+		StateManager.currentState.mouseTriggered(e);
 	}
 
 	public void keyPressed(KeyEvent e)
 	{
-		this.currentState.keyPressed(e);
+		StateManager.currentState.keyPressed(e);
 	}
 
 	public void keyReleased(KeyEvent e)
 	{
-		this.currentState.keyReleased(e);
+		StateManager.currentState.keyReleased(e);
 	}
-
+	
 	public void keyTyped(KeyEvent e)
 	{
-		//not used
+		
 	}
 }

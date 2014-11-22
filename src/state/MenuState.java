@@ -1,8 +1,15 @@
 package state;
 
+import game.GamePanel;
+
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 /************************************************************************
  * Class: MenuState														
@@ -11,10 +18,41 @@ import java.awt.event.MouseEvent;
  * Purpose: The menu that will be shown when the user starts the game																	
  ************************************************************************/
 public class MenuState extends State
-{
+{	
+	private BufferedImage arrow;
+	
+	private BufferedImage background;
+	
+	private BufferedImage play_light;
+	private BufferedImage play_dark;
+	private BufferedImage options_light;
+	private BufferedImage options_dark;
+	private BufferedImage quit_light;
+	private BufferedImage quit_dark;
+	
+	private int selected;
+	
 	public MenuState()
 	{
+		try
+		{
+			this.arrow = ImageIO.read(MenuState.class.getResourceAsStream("/arrow.png"));
+			
+			this.background = ImageIO.read(MenuState.class.getResourceAsStream("/background.png"));
+			
+			this.play_light = ImageIO.read(MenuState.class.getResourceAsStream("/play_light.png"));
+			this.play_dark = ImageIO.read(MenuState.class.getResourceAsStream("/play_dark.png"));
+			this.options_light = ImageIO.read(MenuState.class.getResourceAsStream("/options_light.png"));
+			this.options_dark = ImageIO.read(MenuState.class.getResourceAsStream("/options_dark.png"));
+			this.quit_light = ImageIO.read(MenuState.class.getResourceAsStream("/quit_light.png"));
+			this.quit_dark = ImageIO.read(MenuState.class.getResourceAsStream("/quit_dark.png"));
+		}
+		catch (IOException e)
+		{
+			System.out.println("ERROR: Failed to load menu images.");
+		}
 		
+		this.selected = 0;
 	}
 
 	@Override
@@ -26,7 +64,22 @@ public class MenuState extends State
 	@Override
 	public void draw(Graphics g)
 	{
+		g.drawImage(this.background, 0, 0, null);
 		
+		if(this.selected == 0)
+			g.drawImage(this.play_light, (GamePanel.WIDTH / 2) - 30, GamePanel.HEIGHT - 90, null);
+		else
+			g.drawImage(this.play_dark, (GamePanel.WIDTH / 2) - 30, GamePanel.HEIGHT - 90, null);
+		
+		if(this.selected == 1)
+			g.drawImage(this.options_light, (GamePanel.WIDTH / 2) - 30, GamePanel.HEIGHT - 60, null);
+		else
+			g.drawImage(this.options_dark, (GamePanel.WIDTH / 2) - 30, GamePanel.HEIGHT - 60, null);
+		
+		if(this.selected == 2)
+			g.drawImage(this.quit_light, (GamePanel.WIDTH / 2) - 30, GamePanel.HEIGHT - 30, null);
+		else
+			g.drawImage(this.quit_dark, (GamePanel.WIDTH / 2) - 30, GamePanel.HEIGHT - 30, null);
 	}
 
 	@Override
@@ -44,7 +97,27 @@ public class MenuState extends State
 	@Override
 	public void keyPressed(KeyEvent e)
 	{
+		if(e.getKeyCode() == KeyEvent.VK_DOWN)
+		{
+			this.selected++;
+			if(this.selected == 3) this.selected = 0;
+		}
 		
+		else if(e.getKeyCode() == KeyEvent.VK_UP)
+		{
+			this.selected--;
+			if(this.selected == -1) this.selected = 2;
+		}
+		
+		else if(e.getKeyCode() == KeyEvent.VK_ENTER)
+		{
+			if(this.selected == 0)
+				StateManager.setState(StateManager.OBJECTIVE_STATE);
+			else if(this.selected == 1)
+				System.out.println("OPTIONS");
+			else if(this.selected == 2)
+				System.exit(0);
+		}
 	}
 
 	@Override

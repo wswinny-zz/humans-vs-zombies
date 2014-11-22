@@ -5,5 +5,6 @@
 	<classpathentry kind="lib" path="audio"/>
 	<classpathentry kind="lib" path="img"/>
 	<classpathentry kind="lib" path="map"/>
+	<classpathentry kind="lib" path="menu"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
