@@ -11,6 +11,9 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import map.Map;
+import map.Tile;
+
 /************************************************************
  * Player														
  * Author: Aaron Hitchcock											
@@ -32,6 +35,7 @@ public class Player extends Entity {
 	
 	
 	private Player(){
+		
 		this.images = new ArrayList<BufferedImage>();
 		
 		this.setNumSocks(3);
@@ -50,6 +54,7 @@ public class Player extends Entity {
 			e.printStackTrace();
 		}
 		
+		this.setImg(images.get(0));
 		
 		this.setXVel(0);
 		this.setYVel(0);
@@ -122,7 +127,7 @@ public class Player extends Entity {
 		double velTempX = (this.getXVel());/**this.getVector());*/
 		double velTempY = (this.getYVel());/**(1-this.getVector()));*/
 		
-		System.out.println("x:"+velTempX + " y:" + velTempY);
+		//System.out.println("x:"+velTempX + " y:" + velTempY);
 		
 		//work in the speed multiplier
 		double multTempX = velTempX * speedMultiplier;
@@ -132,9 +137,42 @@ public class Player extends Entity {
 		double xTemp = multTempX + this.getX();
 		double yTemp = multTempY + this.getY();
 		
+		if(!this.intersectsWithMap(this.getX(), yTemp)){
+			super.setY(yTemp);
+		}
+		if(!this.intersectsWithMap(xTemp, this.getY())){
+			super.setX(xTemp);
+		}
+		
+		
 		//set
-		super.setX(xTemp);
-		super.setY(yTemp);
+	}
+	
+	public boolean intersectsWithMap(double xPos,double yPos){
+		Tile[][] tiles = Map.getVisibleMap();
+		int tileWidth = tiles[0][0].getImage().getWidth();
+		
+		
+		for(int row = 0; row < tiles.length; row++){
+			for(int col = 0; col < tiles[row].length; col++){
+				if(tiles[row][col].getTileType() == Tile.BLOCKED){
+					if(col*tileWidth < xPos+16 && col*tileWidth + tileWidth  > xPos -16){
+						if(row*tileWidth < yPos+16 && row*tileWidth + tileWidth > yPos -16){
+							System.out.println("Intersection!");
+							return true;
+						}
+					}
+				}
+			}
+		}
+		
+		
+		System.out.println(tiles[16][17].getTileType() == Tile.BLOCKED);
+		//System.out.println(tiles[16][17]);
+		System.out.println("x:"+xPos + " y:" + yPos);
+		
+		
+		return false;
 	}
 	
 	@Override
