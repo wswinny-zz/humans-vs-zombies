@@ -11,6 +11,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import util.Audio;
+
 /************************************************************************
  * Class: MenuState														
  * Author: William Swinny											
@@ -65,19 +67,19 @@ public class MenuState extends State
 		g.drawImage(this.background, (GamePanel.WIDTH / 2) - (this.background.getWidth() / 2), 0, null);
 		
 		if(this.selected == 0)
-			g.drawImage(this.play_light, (GamePanel.WIDTH / 2) - (this.play_light.getWidth() / 2), GamePanel.HEIGHT - 90, null);
+			g.drawImage(this.play_light, (GamePanel.WIDTH / 2) - (this.play_light.getWidth() / 2), GamePanel.HEIGHT - 100, null);
 		else
-			g.drawImage(this.play_dark, (GamePanel.WIDTH / 2) - (this.play_dark.getWidth() / 2), GamePanel.HEIGHT - 90, null);
+			g.drawImage(this.play_dark, (GamePanel.WIDTH / 2) - (this.play_dark.getWidth() / 2), GamePanel.HEIGHT - 100, null);
 		
 		if(this.selected == 1)
-			g.drawImage(this.options_light, (GamePanel.WIDTH / 2) - (this.options_light.getWidth() / 2), GamePanel.HEIGHT - 60, null);
+			g.drawImage(this.options_light, (GamePanel.WIDTH / 2) - (this.options_light.getWidth() / 2), GamePanel.HEIGHT - 70, null);
 		else
-			g.drawImage(this.options_dark, (GamePanel.WIDTH / 2) - (this.options_dark.getWidth() / 2), GamePanel.HEIGHT - 60, null);
+			g.drawImage(this.options_dark, (GamePanel.WIDTH / 2) - (this.options_dark.getWidth() / 2), GamePanel.HEIGHT - 70, null);
 		
 		if(this.selected == 2)
-			g.drawImage(this.quit_light, (GamePanel.WIDTH / 2) - (this.quit_light.getWidth() / 2), GamePanel.HEIGHT - 30, null);
+			g.drawImage(this.quit_light, (GamePanel.WIDTH / 2) - (this.quit_light.getWidth() / 2), GamePanel.HEIGHT - 40, null);
 		else
-			g.drawImage(this.quit_dark, (GamePanel.WIDTH / 2) - (this.quit_dark.getWidth() / 2), GamePanel.HEIGHT - 30, null);
+			g.drawImage(this.quit_dark, (GamePanel.WIDTH / 2) - (this.quit_dark.getWidth() / 2), GamePanel.HEIGHT - 40, null);
 	}
 
 	@Override
@@ -99,12 +101,16 @@ public class MenuState extends State
 		{
 			this.selected++;
 			if(this.selected == 3) this.selected = 0;
+			
+			Audio.getInstance().playMenuEffect();
 		}
 		
 		else if(e.getKeyCode() == KeyEvent.VK_UP)
 		{
 			this.selected--;
 			if(this.selected == -1) this.selected = 2;
+			
+			Audio.getInstance().playMenuEffect();
 		}
 		
 		else if(e.getKeyCode() == KeyEvent.VK_ENTER)
