@@ -18,9 +18,7 @@ import javax.imageio.ImageIO;
  * Purpose: The menu that will be shown when the user starts the game																	
  ************************************************************************/
 public class MenuState extends State
-{	
-	private BufferedImage arrow;
-	
+{
 	private BufferedImage background;
 	
 	private BufferedImage play_light;
@@ -36,8 +34,6 @@ public class MenuState extends State
 	{
 		try
 		{
-			this.arrow = ImageIO.read(MenuState.class.getResourceAsStream("/arrow.png"));
-			
 			this.background = ImageIO.read(MenuState.class.getResourceAsStream("/background.png"));
 			
 			this.play_light = ImageIO.read(MenuState.class.getResourceAsStream("/play_light.png"));
@@ -64,22 +60,24 @@ public class MenuState extends State
 	@Override
 	public void draw(Graphics g)
 	{
-		g.drawImage(this.background, 0, 0, null);
+		g.clearRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
+		
+		g.drawImage(this.background, (GamePanel.WIDTH / 2) - (this.background.getWidth() / 2), 0, null);
 		
 		if(this.selected == 0)
-			g.drawImage(this.play_light, (GamePanel.WIDTH / 2) - 30, GamePanel.HEIGHT - 90, null);
+			g.drawImage(this.play_light, (GamePanel.WIDTH / 2) - (this.play_light.getWidth() / 2), GamePanel.HEIGHT - 90, null);
 		else
-			g.drawImage(this.play_dark, (GamePanel.WIDTH / 2) - 30, GamePanel.HEIGHT - 90, null);
+			g.drawImage(this.play_dark, (GamePanel.WIDTH / 2) - (this.play_dark.getWidth() / 2), GamePanel.HEIGHT - 90, null);
 		
 		if(this.selected == 1)
-			g.drawImage(this.options_light, (GamePanel.WIDTH / 2) - 30, GamePanel.HEIGHT - 60, null);
+			g.drawImage(this.options_light, (GamePanel.WIDTH / 2) - (this.options_light.getWidth() / 2), GamePanel.HEIGHT - 60, null);
 		else
-			g.drawImage(this.options_dark, (GamePanel.WIDTH / 2) - 30, GamePanel.HEIGHT - 60, null);
+			g.drawImage(this.options_dark, (GamePanel.WIDTH / 2) - (this.options_dark.getWidth() / 2), GamePanel.HEIGHT - 60, null);
 		
 		if(this.selected == 2)
-			g.drawImage(this.quit_light, (GamePanel.WIDTH / 2) - 30, GamePanel.HEIGHT - 30, null);
+			g.drawImage(this.quit_light, (GamePanel.WIDTH / 2) - (this.quit_light.getWidth() / 2), GamePanel.HEIGHT - 30, null);
 		else
-			g.drawImage(this.quit_dark, (GamePanel.WIDTH / 2) - 30, GamePanel.HEIGHT - 30, null);
+			g.drawImage(this.quit_dark, (GamePanel.WIDTH / 2) - (this.quit_dark.getWidth() / 2), GamePanel.HEIGHT - 30, null);
 	}
 
 	@Override
