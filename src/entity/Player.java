@@ -156,8 +156,8 @@ public class Player extends Entity {
 		for(int row = 0; row < tiles.length; row++){
 			for(int col = 0; col < tiles[row].length; col++){
 				if(tiles[row][col].getTileType() == Tile.BLOCKED){
-					if(col*tileWidth < xPos+16 && col*tileWidth + tileWidth  > xPos -16){
-						if(row*tileWidth < yPos+16 && row*tileWidth + tileWidth > yPos -16){
+					if(col*tileWidth < xPos+10 && col*tileWidth + tileWidth  > xPos -10){
+						if(row*tileWidth < yPos+16 && row*tileWidth + tileWidth > yPos -7){
 							System.out.println("Intersection!");
 							return true;
 						}

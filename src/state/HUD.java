@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import map.Map;
 import entity.Player;
 import game.GamePanel;
 
@@ -44,6 +45,13 @@ public class HUD
 		g2.drawImage(miniMap, GamePanel.WIDTH-96, 0, 96, 96, null);
 		g2.setColor(Color.BLACK);
 		g2.drawRect(GamePanel.WIDTH-96, 0, 95, 96);
+		
+		int size = Map.getVisibleMap()[0][0].getImage().getWidth();
+		double playerPercentX = 1-(Player.getInstance().getX()/(Map.getVisibleMap().length*size));
+		double playerPercentY = (Player.getInstance().getY()/(Map.getVisibleMap()[0].length*size));
+		
+		g2.setColor(Color.RED);
+		g2.drawOval((int)(GamePanel.WIDTH - (playerPercentX*96)), (int)(96*playerPercentY), 2, 2);
 		g2.dispose();		
 	}
 }
