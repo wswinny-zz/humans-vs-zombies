@@ -45,7 +45,7 @@ public class Map
 	private int rowOffset;
 	
 	private ArrayList <BufferedImage> tiles;
-	private Tile[][] visibleMap;
+	private static Tile[][] visibleMap;
 	
 	public Map(int tileSize)
 	{
@@ -56,6 +56,11 @@ public class Map
 		
 		this.numRowsToDraw = GamePanel.HEIGHT / tileSize + 2;
 		this.numColsToDraw = GamePanel.WIDTH / tileSize + 2;
+	}
+	
+	public static Tile[][] getVisibleMap()
+	{
+		return Map.visibleMap;
 	}
 	
 	public void loadTileset(String tileSetResource)
@@ -97,7 +102,7 @@ public class Map
 			this.xMax = (this.numCols * this.tileSize) - GamePanel.WIDTH;
 			this.yMax = (this.numRows * this.tileSize) - GamePanel.HEIGHT;
 			
-			this.visibleMap = new Tile[this.numRows][this.numCols];
+			Map.visibleMap = new Tile[this.numRows][this.numCols];
 			
 			String line;
 			for(int row = 0; row < this.numRows; ++row)
@@ -107,7 +112,7 @@ public class Map
 				String [] numbers = line.split(",");
 				
 				for(int col = 0; col < numbers.length; ++col)
-					this.visibleMap[row][col] = new Tile(this.tiles.get(Integer.parseInt(numbers[col].split(":")[0]) - 1), Integer.parseInt(numbers[col].split(":")[1]));
+					Map.visibleMap[row][col] = new Tile(this.tiles.get(Integer.parseInt(numbers[col].split(":")[0]) - 1), Integer.parseInt(numbers[col].split(":")[1]));
 			}
 		}
 		catch (NumberFormatException | IOException e)
@@ -130,7 +135,7 @@ public class Map
 				
 				try
 				{
-					g.drawImage(this.visibleMap[row][col].getImage(), x - (this.x % this.tileSize), y - (this.y % this.tileSize), null);
+					g.drawImage(Map.visibleMap[row][col].getImage(), x - (this.x % this.tileSize), y - (this.y % this.tileSize), null);
 				}
 				catch(Exception e) 
 				{
