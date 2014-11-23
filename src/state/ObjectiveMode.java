@@ -22,10 +22,14 @@ public class ObjectiveMode extends State
 	private Map map;
 	private Player player;
 	private ArrayList<Zombie> zombies;
+	private HUD hud;
 	
 	public ObjectiveMode()
 	{
 		this.map = new Map(32);
+		this.player = Player.getInstance();
+		
+		this.hud = new HUD();
 		
 		this.init();
 	}
@@ -34,9 +38,7 @@ public class ObjectiveMode extends State
 	public void init()
 	{
 		this.map.loadTileset("/tiles.png");
-		this.map.loadMap("/map.map");
-		
-		this.player = Player.getInstance();
+		this.map.loadMap("/map2.map");
 	}
 
 	@Override
@@ -44,6 +46,7 @@ public class ObjectiveMode extends State
 	{
 		this.map.draw(g);
 		this.player.draw(g);
+		this.hud.draw(g);
 	}
 	
 	@Override

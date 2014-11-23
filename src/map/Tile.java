@@ -12,12 +12,13 @@ import java.awt.image.BufferedImage;
 public class Tile
 {
 	private BufferedImage image;
-	private boolean type;
+	private int type;
 	
-	public static final boolean NORMAL = true;
-	public static final boolean BLOCKED = false;
+	public static final int NORMAL = 0;
+	public static final int ZOMBIE_BLOCKED = 1;
+	public static final int BLOCKED = 2;
 	
-	public Tile(BufferedImage image, boolean type)
+	public Tile(BufferedImage image, int type)
 	{
 		this.image = image;
 		this.type = type;
@@ -28,7 +29,7 @@ public class Tile
 		return image;
 	}
 	
-	public boolean getTileType()
+	public int getTileType()
 	{
 		return type;
 	}

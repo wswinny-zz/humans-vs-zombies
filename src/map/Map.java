@@ -107,7 +107,7 @@ public class Map
 				String [] numbers = line.split(",");
 				
 				for(int col = 0; col < numbers.length; ++col)
-					this.visibleMap[row][col] = new Tile(this.tiles.get(Integer.parseInt(numbers[col])), Tile.NORMAL);
+					this.visibleMap[row][col] = new Tile(this.tiles.get(Integer.parseInt(numbers[col].split(":")[0]) - 1), Integer.parseInt(numbers[col].split(":")[1]));
 			}
 		}
 		catch (NumberFormatException | IOException e)
