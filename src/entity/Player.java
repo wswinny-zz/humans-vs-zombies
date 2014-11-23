@@ -28,11 +28,14 @@ public class Player extends Entity {
 	private boolean DKeyDown;
 	
 	private static final Player instance = new Player();
+	private int numSocks;
+	
 	
 	private Player(){
 		this.images = new ArrayList<BufferedImage>();
 		
-
+		this.setNumSocks(3);
+		
 		try {		
 			BufferedImage tileset;
 			tileset = ImageIO.read(Player.class.getResourceAsStream("/player.png"));
@@ -226,5 +229,13 @@ public class Player extends Entity {
 
 	public void setDKeyDown(boolean dKeyDown) {
 		DKeyDown = dKeyDown;
+	}
+
+	public int getNumSocks() {
+		return numSocks;
+	}
+
+	public void setNumSocks(int numSocks) {
+		this.numSocks = numSocks;
 	}
 }
