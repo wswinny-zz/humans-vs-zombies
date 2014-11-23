@@ -5,6 +5,11 @@ import game.GamePanel;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 /************************************************************
  * Player														
@@ -15,6 +20,7 @@ import java.awt.event.MouseEvent;
 
 public class Player extends Entity {
 	private double speedMultiplier;
+	private ArrayList<BufferedImage> images;
 	
 	private boolean WKeyDown;
 	private boolean AKeyDown;
@@ -24,6 +30,24 @@ public class Player extends Entity {
 	private static final Player instance = new Player();
 	
 	private Player(){
+		this.images = new ArrayList<BufferedImage>();
+		
+
+		try {		
+			BufferedImage tileset;
+			tileset = ImageIO.read(Player.class.getResourceAsStream("/player.png"));
+			
+			for(int x = 0; x < (tileset.getWidth()/32); x++){
+				for(int y = 0; y < (tileset.getHeight()/32); y++){
+					this.images.add(tileset.getSubimage(x*32, y*32, 32, 32));
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		this.setXVel(0);
 		this.setYVel(0);
 		this.setVector(1);
@@ -47,6 +71,7 @@ public class Player extends Entity {
 		//because even though its normalized
 		//it makes the movement choppier
 		if((WKeyDown || SKeyDown) && (AKeyDown || DKeyDown)){
+
 			this.setVector(.5);
 		}else if(SKeyDown || WKeyDown && !(AKeyDown || DKeyDown)){
 			this.setVector(0);
@@ -57,8 +82,10 @@ public class Player extends Entity {
 		
 		if(AKeyDown && !DKeyDown){
 			this.setXVel(-1);
+			this.setImg(this.images.get(1));
 		}else if(DKeyDown && !AKeyDown){
 			this.setXVel(1);
+			this.setImg(this.images.get(2));
 		}else{
 			this.setXVel(0);
 		}
@@ -66,10 +93,24 @@ public class Player extends Entity {
 		
 		if(WKeyDown && !SKeyDown){
 			this.setYVel(-1);
+			this.setImg(this.images.get(3));
 		}else if(SKeyDown && !WKeyDown){
 			this.setYVel(1);
+			this.setImg(this.images.get(0));
 		}else{
 			this.setYVel(0);
+		}
+		
+		if(WKeyDown){
+			if(AKeyDown)
+				this.setImg(this.images.get(81));
+			if(DKeyDown)
+				this.setImg(this.images.get(83));				
+		}else if(SKeyDown){
+			if(AKeyDown)
+				this.setImg(this.images.get(80));
+			if(DKeyDown)
+				this.setImg(this.images.get(82));	
 		}
 		
 		
@@ -96,7 +137,11 @@ public class Player extends Entity {
 	@Override
 	public void draw(Graphics g){
 		//Temporary draw to denote the player
-		g.drawOval(GamePanel.WIDTH/2-4, GamePanel.HEIGHT/2-4, 8, 8);
+		if(this.getImg() == null){
+			g.drawOval(GamePanel.WIDTH/2-4, GamePanel.HEIGHT/2-4, 8, 8);
+		}else{
+			g.drawImage(this.getImg(), GamePanel.WIDTH/2-16, GamePanel.HEIGHT/2-16, this.getImg().getWidth(), this.getImg().getHeight(), null);
+		}
 	}
 
 	public double getSpeedMultiplier() {
