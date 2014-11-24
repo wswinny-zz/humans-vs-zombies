@@ -28,23 +28,31 @@ public class ObjectiveMode extends State
 	{
 		this.map = new Map(32);
 		this.player = Player.getInstance();
+		this.zombies = new ArrayList<Zombie>();
 		
 		this.hud = new HUD();
 		
 		this.init();
 	}
 
-	@Override
+	@Override 
 	public void init()
 	{
 		this.map.loadTileset("/tiles.png");
-		this.map.loadMap("/map2.map");
+		this.map.loadMap("/swinnymap.map");
+		
+		for(int i = 0; i < 100; ++i)
+			this.zombies.add(new Zombie());
 	}
 
 	@Override
 	public void draw(Graphics g)
 	{
 		this.map.draw(g);
+		
+		for(int i = 0; i < this.zombies.size(); ++i)
+			this.zombies.get(i).draw(g);
+		
 		this.player.draw(g);
 		this.hud.draw(g);
 	}
@@ -52,6 +60,9 @@ public class ObjectiveMode extends State
 	@Override
 	public void update()
 	{
+		for(int i = 0; i < this.zombies.size(); ++i)
+			this.zombies.get(i).update();
+		
 		this.player.update();
 		this.map.setPosition((int)this.player.getX(), (int)this.player.getY());
 	}
