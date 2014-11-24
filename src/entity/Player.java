@@ -158,7 +158,7 @@ public class Player extends Entity {
 				if(tiles[row][col].getTileType() == Tile.BLOCKED){
 					if(col*tileWidth < xPos+10 && col*tileWidth + tileWidth  > xPos -10){
 						if(row*tileWidth < yPos+16 && row*tileWidth + tileWidth > yPos -7){
-							System.out.println("Intersection!");
+							//System.out.println("Intersection!");
 							return true;
 						}
 					}
@@ -166,10 +166,6 @@ public class Player extends Entity {
 			}
 		}
 		
-		
-		System.out.println(tiles[16][17].getTileType() == Tile.BLOCKED);
-		//System.out.println(tiles[16][17]);
-		System.out.println("x:"+xPos + " y:" + yPos);
 		
 		
 		return false;

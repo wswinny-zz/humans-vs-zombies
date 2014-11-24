@@ -1,7 +1,11 @@
 package state;
 
+import entity.Player;
+import game.GamePanel;
+
 import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -10,8 +14,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import map.Map;
-import entity.Player;
-import game.GamePanel;
 
 /************************************************************
  * HUD														
@@ -37,6 +39,12 @@ public class HUD
 	
 	public void draw(Graphics g){
 		Graphics2D g2 = (Graphics2D)g;
+		
+		
+		g2.setFont(new Font("Arial", Font.BOLD, 16));
+		g2.setColor(Color.BLACK);
+		g2.drawString("Socks", GamePanel.WIDTH-50, GamePanel.HEIGHT - 32);
+		
 		for(int i = 0; i < Player.getInstance().getNumSocks(); i++){
 			g2.drawImage(sock, GamePanel.WIDTH-(32*(i+1)), GamePanel.HEIGHT-32, sock.getWidth(), sock.getHeight(), null);
 		}
