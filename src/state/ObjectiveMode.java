@@ -26,7 +26,7 @@ public class ObjectiveMode extends State
 	
 	public ObjectiveMode()
 	{
-		this.map = new Map(32);
+		this.map = new Map(64);
 		this.player = Player.getInstance();
 		this.zombies = new ArrayList<Zombie>();
 		
@@ -38,8 +38,8 @@ public class ObjectiveMode extends State
 	@Override 
 	public void init()
 	{
-		this.map.loadTileset("/tiles.png");
-		this.map.loadMap("/map2.map");
+		this.map.loadTileset("/tilesSet.png");
+		this.map.loadMap("/map.map");
 		
 		for(int i = 0; i < 100; ++i)
 			this.zombies.add(new Zombie());
