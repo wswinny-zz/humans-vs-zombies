@@ -19,7 +19,7 @@ public class GamePanel extends JPanel{
 	private StateManager stateManager;
 	private boolean running;
 
-	public static final int WIDTH = 320;
+	public static final int WIDTH = 480;
 	public static final int HEIGHT = (GamePanel.WIDTH * 3 / 4);
 	public static final int SCALE = 2;
 	public static final int FPS = 60;
