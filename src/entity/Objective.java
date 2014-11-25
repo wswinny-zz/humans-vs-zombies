@@ -1,8 +1,13 @@
 package entity;
 
+import game.GamePanel;
+
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Random;
 
-import game.GamePanel;
+import javax.imageio.ImageIO;
+
 import map.Map;
 import map.Tile;
 
@@ -27,6 +32,21 @@ public class Objective extends Entity{
 			xPos = 100 + random.nextInt((GamePanel.WIDTH*GamePanel.SCALE*2)-200);
 			yPos = 100 + random.nextInt((GamePanel.HEIGHT*GamePanel.SCALE*2)-200);
 		}		
+		
+		//Set the x and y position of the objective
+		this.setX(xPos);
+		this.setY(yPos);
+		
+		//Set the image of the objective if it hasn't been set already
+		if(this.getImg() == null){
+			BufferedImage imgTemp;
+			try {
+				imgTemp = ImageIO.read(Player.class.getResourceAsStream("/objective.png"));
+				this.setImg(imgTemp);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	//Determines whether or not the position given intersects with the map
