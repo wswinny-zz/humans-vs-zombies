@@ -140,7 +140,7 @@ public class Zombie extends Entity {
 		}
 		
 		//While the time delta is too high or the point intersects with the map
-		if(delta > 3 || intersectsWithMap(xTemp, yTemp)){
+		if(intersectsWithMap(xTemp, yTemp)){
 			if(intersectsWithMap(xTemp, this.getY())){
 				this.setXVel(this.getXVel()*-1);
 			}else if(intersectsWithMap(this.getX(), yTemp)){

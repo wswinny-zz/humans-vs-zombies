@@ -59,6 +59,8 @@ public class Player extends Entity {
 		
 		this.setImg(images.get(0));
 		
+		this.setX(Map.getTileSize()*10);
+		this.setY(Map.getTileSize()*10);
 		this.setXVel(0);
 		this.setYVel(0);
 		this.setVector(1);

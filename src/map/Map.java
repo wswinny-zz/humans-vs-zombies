@@ -34,7 +34,7 @@ public class Map
 	private int yMax;
 	
 	// map and tile stuff
-	private int tileSize;
+	private static int tileSize;
 	private int numRows;
 	private int numCols;
 	
@@ -49,7 +49,7 @@ public class Map
 	
 	public Map(int tileSize)
 	{
-		this.tileSize = tileSize;
+		Map.tileSize = tileSize;
 		
 		this.xMin = 0;
 		this.yMin = 0;
@@ -61,6 +61,11 @@ public class Map
 	public static Tile[][] getVisibleMap()
 	{
 		return Map.visibleMap;
+	}
+	
+	public static int getTileSize()
+	{
+		return Map.tileSize;
 	}
 	
 	public void loadTileset(String tileSetResource)
@@ -77,11 +82,19 @@ public class Map
 		
 		this.tiles = new ArrayList<BufferedImage>();
 		
-		for(int x = 0; x < tileset.getWidth(null); x += this.tileSize)
+		for(int x = 0; x < tileset.getHeight(); x += Map.tileSize)
 		{
-			for(int y = 0; y < tileset.getHeight(null); y += this.tileSize)
+			for(int y = 0; y < tileset.getWidth(); y += Map.tileSize)
 			{
-				this.tiles.add(tileset.getSubimage(x, y, this.tileSize, this.tileSize));
+				System.out.println("Y: " + y + " X: " + x);
+				try
+				{
+					this.tiles.add(tileset.getSubimage(y, x, Map.tileSize, Map.tileSize));
+				}
+				catch(Exception e)
+				{
+					
+				}
 			}
 		}
 	}
@@ -99,8 +112,8 @@ public class Map
 			this.numCols = Integer.parseInt(WH[0]);
 			this.numRows = Integer.parseInt(WH[1]);
 			
-			this.xMax = (this.numCols * this.tileSize) - GamePanel.WIDTH;
-			this.yMax = (this.numRows * this.tileSize) - GamePanel.HEIGHT;
+			this.xMax = (this.numCols * Map.tileSize) - GamePanel.WIDTH;
+			this.yMax = (this.numRows * Map.tileSize) - GamePanel.HEIGHT;
 			
 			Map.visibleMap = new Tile[this.numRows][this.numCols];
 			
@@ -123,19 +136,19 @@ public class Map
 	
 	public void draw(Graphics g)
 	{
-		for(int row = this.rowOffset, y = 0; row < this.rowOffset + this.numRowsToDraw; ++row, y += this.tileSize)
+		for(int row = this.rowOffset, y = 0; row < this.rowOffset + this.numRowsToDraw; ++row, y += Map.tileSize)
 		{
 			if(row > this.numRows)
 				break;
 			
-			for(int col = this.colOffset, x = 0; col < this.colOffset + this.numColsToDraw; ++col, x += this.tileSize)
+			for(int col = this.colOffset, x = 0; col < this.colOffset + this.numColsToDraw; ++col, x += Map.tileSize)
 			{
 				if(col > this.numCols)
 					break;
 				
 				try
 				{
-					g.drawImage(Map.visibleMap[row][col].getImage(), x - (this.x % this.tileSize), y - (this.y % this.tileSize), null);
+					g.drawImage(Map.visibleMap[row][col].getImage(), x - (this.x % Map.tileSize), y - (this.y % Map.tileSize), null);
 				}
 				catch(Exception e) 
 				{
@@ -152,8 +165,8 @@ public class Map
 		
 		this.checkBounds();
 		
-		this.colOffset = this.x / this.tileSize;
-		this.rowOffset = this.y / this.tileSize;
+		this.colOffset = this.x / Map.tileSize;
+		this.rowOffset = this.y / Map.tileSize;
 	}
 	
 	public void checkBounds()
