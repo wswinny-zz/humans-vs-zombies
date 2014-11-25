@@ -39,7 +39,7 @@ public class ObjectiveMode extends State
 	public void init()
 	{
 		this.map.loadTileset("/tiles.png");
-		this.map.loadMap("/swinnymap.map");
+		this.map.loadMap("/map2.map");
 		
 		for(int i = 0; i < 100; ++i)
 			this.zombies.add(new Zombie());
