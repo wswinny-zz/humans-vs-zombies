@@ -31,6 +31,8 @@ public class Player extends Entity {
 	private boolean DKeyDown;
 	
 	private static Player instance = new Player();
+	
+	private ArrayList<Sock> socks;
 	private int numSocks;
 	
 	
@@ -38,6 +40,7 @@ public class Player extends Entity {
 		
 		this.images = new ArrayList<BufferedImage>();
 		
+		this.socks = new ArrayList<Sock>();
 		this.setNumSocks(3);
 		
 		try {		
@@ -76,6 +79,10 @@ public class Player extends Entity {
 	}
 	
 	public void update(){
+		for(Sock s : socks){
+			s.update();
+		}
+		
 		//System.out.println("SKey:" + SKeyDown + " WKey:" + WKeyDown + " AKey:" + AKeyDown + " DKey:" + DKeyDown);
 		
 		//If W or S and A or D
@@ -177,6 +184,10 @@ public class Player extends Entity {
 	
 	@Override
 	public void draw(Graphics g){
+		for(Sock s : socks){
+			s.draw(g);
+		}
+		
 		//Temporary draw to denote the player
 		if(this.getImg() == null){
 			g.drawOval(GamePanel.WIDTH/2-4, GamePanel.HEIGHT/2-4, 8, 8);
@@ -194,7 +205,14 @@ public class Player extends Entity {
 	}
 	
 	public void mouseClicked(MouseEvent e){
-		
+		if(this.numSocks > 0){
+			double mousePosX = getX() - ((GamePanel.WIDTH*GamePanel.SCALE/2) - e.getPoint().x);
+			double mousePosY = getY() - ((GamePanel.HEIGHT*GamePanel.SCALE/2) - e.getPoint().y);
+			
+			//System.out.println(mousePosX + "," + mousePosY + " " + this.getX() + "," + this.getY());
+			this.socks.add(new Sock((int)mousePosX, (int)mousePosY, (int)this.getX(), (int)this.getY()));
+			numSocks--;
+		}
 	}
 	
 	public void mouseMoved(MouseEvent e){

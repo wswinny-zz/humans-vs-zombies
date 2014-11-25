@@ -169,8 +169,15 @@ public class Zombie extends Entity {
 		//System.out.println(this.getX() + "+" + xTemp);
 		
 		if(this.getVector() > .5){
-			this.setImg(Zombie.images.get(1));
-			
+			if(this.getXVel() > 0)
+				this.setImg(Zombie.images.get(1));
+			if(this.getXVel() < 0)
+				this.setImg(Zombie.images.get(3));	
+		}else{
+			if(this.getYVel() > 0)
+				this.setImg(Zombie.images.get(0));
+			if(this.getYVel() < 0)
+				this.setImg(Zombie.images.get(2));
 		}
 		
 		this.setX(xTemp);
