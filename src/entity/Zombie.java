@@ -4,8 +4,13 @@ import game.GamePanel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 import map.Map;
 import map.Tile;
@@ -22,6 +27,7 @@ public class Zombie extends Entity {
 	private long lastTime;
 	private boolean stunned;
 	private long stunnedTime;
+	private static ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
 	
 	public Zombie(){
 		
@@ -42,7 +48,21 @@ public class Zombie extends Entity {
 			yPos = 100 + random.nextInt((GamePanel.HEIGHT*GamePanel.SCALE*2)-200);
 		}
 		
-		
+
+		try {		
+			BufferedImage tileset;
+			tileset = ImageIO.read(Player.class.getResourceAsStream("/zombie.png"));
+			
+			if(images.size() == 0){
+				for(int x = 0; x < (tileset.getWidth()/32); x++){
+					for(int y = 0; y < (tileset.getHeight()/32); y++){
+						images.add(tileset.getSubimage(x*32, y*32, 32, 32));
+					}
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		this.setSpeedMultiplier(1);
 		this.setX(xPos);
@@ -142,6 +162,12 @@ public class Zombie extends Entity {
 		
 		//set the x
 		//System.out.println(this.getX() + "+" + xTemp);
+		
+		if(this.getVector() > .5){
+			this.setImg(Zombie.images.get(1));
+			
+		}
+		
 		this.setX(xTemp);
 		this.setY(yTemp);
 		
@@ -159,8 +185,15 @@ public class Zombie extends Entity {
 		g.setColor(Color.RED);
 		///System.out.println("Y:"+(int)(this.getY() - playerY));
 		//System.out.println("X:"+(int)(this.getX() - playerX));
-		g.fillOval((int)(this.getX() - playerX)+GamePanel.WIDTH/2,(int)(this.getY() - playerY)+GamePanel.HEIGHT/2, 10, 10);
+		//g.fillOval((int)(this.getX() - playerX)+GamePanel.WIDTH/2,(int)(this.getY() - playerY)+GamePanel.HEIGHT/2, 10, 10);
 
+		if(this.getImg() != null){
+			g.drawImage(this.getImg(),
+					(int)(this.getX() - playerX)+GamePanel.WIDTH/2,
+					(int)(this.getY() - playerY)+GamePanel.HEIGHT/2,
+					this.getImg().getWidth(),
+					this.getImg().getHeight(), null);
+		}
 		
 	}
 

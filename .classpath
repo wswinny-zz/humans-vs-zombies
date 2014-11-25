@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="map"/>
 	<classpathentry kind="lib" path="menu"/>
 	<classpathentry kind="lib" path="player"/>
+	<classpathentry kind="lib" path="zombie"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
