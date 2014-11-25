@@ -95,7 +95,7 @@ public class Sock extends Entity{
 		yPos = (this.getYVel() * (1 - this.getVector()) + this.getY());
 		
 		//Determine whether or not the sock has reached its final destination
-		if(xPos == this.endPosX && yPos == this.endPosY){
+		if((int)xPos == (int)this.endPosX && (int)yPos == (int)this.endPosY){
 			this.isDone = true;
 		}
 		
