@@ -30,7 +30,7 @@ public class Player extends Entity {
 	private boolean SKeyDown;
 	private boolean DKeyDown;
 	
-	private static final Player instance = new Player();
+	private static Player instance = new Player();
 	private int numSocks;
 	
 	
@@ -69,6 +69,10 @@ public class Player extends Entity {
 	
 	public static Player getInstance(){
 		return instance;
+	}
+	
+	public static void reset(){
+		instance = new Player();
 	}
 	
 	public void update(){

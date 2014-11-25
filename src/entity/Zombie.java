@@ -12,6 +12,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import state.StateManager;
 import map.Map;
 import map.Tile;
 
@@ -48,15 +49,17 @@ public class Zombie extends Entity {
 			yPos = 100 + random.nextInt((GamePanel.HEIGHT*GamePanel.SCALE*2)-200);
 		}
 		
-
+		this.setWidth(40);
+		this.setHeight(36);
+		
 		try {		
 			BufferedImage tileset;
 			tileset = ImageIO.read(Player.class.getResourceAsStream("/zombie.png"));
 			
 			if(images.size() == 0){
-				for(int x = 0; x < (tileset.getWidth()/32); x++){
-					for(int y = 0; y < (tileset.getHeight()/32); y++){
-						images.add(tileset.getSubimage(x*32, y*32, 32, 32));
+				for(int x = 0; x < (tileset.getWidth()/this.getWidth()); x++){
+					for(int y = 0; y < (tileset.getHeight()/this.getHeight()); y++){
+						images.add(tileset.getSubimage(x*this.getWidth(), y*this.getHeight(), this.getWidth(), this.getHeight()));
 					}
 				}
 			}
@@ -64,6 +67,7 @@ public class Zombie extends Entity {
 			e.printStackTrace();
 		}
 		
+		this.setImg(Zombie.images.get(0));
 		this.setSpeedMultiplier(1);
 		this.setX(xPos);
 		this.setY(yPos);
@@ -83,9 +87,9 @@ public class Zombie extends Entity {
 				//if the tile is non-walkable for zombies
 				if(tiles[row][col].getTileType() == Tile.BLOCKED || tiles[row][col].getTileType() == Tile.ZOMBIE_BLOCKED){
 					//if they're within this tile on the x axis
-					if(col*tileWidth < xPos+10 && col*tileWidth + tileWidth  > xPos -10){
+					if(col*tileWidth < xPos+ this.getWidth()/2 && col*tileWidth + tileWidth  > xPos -this.getWidth()/2){
 						//if they're within this tile on y axis
-						if(row*tileWidth < yPos+16 && row*tileWidth + tileWidth > yPos -7){
+						if(row*tileWidth < yPos+ this.getHeight()/2 && row*tileWidth + tileWidth > yPos - this.getHeight()/2){
 							//tell them no!
 							return true;
 						}
@@ -131,9 +135,8 @@ public class Zombie extends Entity {
 		double xTemp = multTempX + this.getX();
 		double yTemp = multTempY + this.getY();
 		
-		if(delta > 5){
-			System.out.println("Hi");
-			//this.lastTime = new Date().getTime();
+		if(intersectsWithPlayer(xTemp, yTemp)){
+			StateManager.setState(StateManager.DEATH_STATE);
 		}
 		
 		//While the time delta is too high or the point intersects with the map
@@ -160,6 +163,8 @@ public class Zombie extends Entity {
 			yTemp = multTempY + this.getY();
 		}
 		
+
+		
 		//set the x
 		//System.out.println(this.getX() + "+" + xTemp);
 		
@@ -175,6 +180,16 @@ public class Zombie extends Entity {
 		
 	}
 	
+	public boolean intersectsWithPlayer(double x, double y){
+		if(Player.getInstance().getX() < x
+				&& Player.getInstance().getX() + 32 > x
+				&& Player.getInstance().getY() < y
+				&& Player.getInstance().getY() + 32 > y){
+			return true;
+		}else
+			return false;
+	}
+	
 	@Override
 	public void draw(Graphics g){
 		
@@ -182,15 +197,15 @@ public class Zombie extends Entity {
 		double playerY = Player.getInstance().getY();
 		
 
-		g.setColor(Color.RED);
+		//g.setColor(Color.RED);
 		///System.out.println("Y:"+(int)(this.getY() - playerY));
 		//System.out.println("X:"+(int)(this.getX() - playerX));
 		//g.fillOval((int)(this.getX() - playerX)+GamePanel.WIDTH/2,(int)(this.getY() - playerY)+GamePanel.HEIGHT/2, 10, 10);
 
 		if(this.getImg() != null){
 			g.drawImage(this.getImg(),
-					(int)(this.getX() - playerX)+GamePanel.WIDTH/2,
-					(int)(this.getY() - playerY)+GamePanel.HEIGHT/2,
+					(int)(this.getX() - playerX - this.getWidth()/2)+GamePanel.WIDTH/2,
+					(int)(this.getY() - playerY - this.getHeight()/2)+GamePanel.HEIGHT/2,
 					this.getImg().getWidth(),
 					this.getImg().getHeight(), null);
 		}
