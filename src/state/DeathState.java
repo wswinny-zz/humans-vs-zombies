@@ -1,5 +1,6 @@
 package state;
 
+import entity.Player;
 import game.GamePanel;
 
 import java.awt.Graphics;
@@ -40,6 +41,8 @@ public class DeathState extends State
 		}
 		
 		this.selected = 0;
+		
+		Player.reset();
 	}
 	
 	@Override
