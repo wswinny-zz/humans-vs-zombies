@@ -18,6 +18,7 @@ public class StateManager implements KeyListener, MouseListener, MouseMotionList
 {
 	public static final int MENU_STATE = 0;
 	public static final int OBJECTIVE_STATE = 1;
+	public static final int DEATH_STATE = 2;
 	
 	private static State currentState;
 	
@@ -32,6 +33,8 @@ public class StateManager implements KeyListener, MouseListener, MouseMotionList
 			currentState = new MenuState();
 		else if(state == StateManager.OBJECTIVE_STATE)
 			currentState = new ObjectiveMode();
+		else if(state == StateManager.DEATH_STATE)
+			currentState = new DeathState();
 	}
 
 	public void draw(Graphics g)
