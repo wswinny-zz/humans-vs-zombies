@@ -2,6 +2,7 @@ package entity;
 
 import game.GamePanel;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
@@ -72,6 +73,21 @@ public class Objective extends Entity{
 			}
 		}
 		return false;
+	}
+	
+	//Draw the objective onto the panel
+	@Override
+	public void draw(Graphics g){
+		double playerX = Player.getInstance().getX();
+		double playerY = Player.getInstance().getY();
+
+		if(this.getImg() != null){
+			g.drawImage(this.getImg(),
+					(int)(this.getX() - playerX)+GamePanel.WIDTH/2,
+					(int)(this.getY() - playerY)+GamePanel.HEIGHT/2,
+					this.getImg().getWidth(),
+					this.getImg().getHeight(), null);
+		}
 	}
 
 	public static int getObjectiveDuration() {
