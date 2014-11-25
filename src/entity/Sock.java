@@ -31,10 +31,13 @@ public class Sock extends Entity{
 			}
 		}
 		
+		//set the sock's image
+		this.setImg(sockImage);
+		
 		//Determine the vector value
-		int xDistance = Math.abs(goXPos - playerXPos);
-		int yDistance = Math.abs(goYPos - playerYPos);
-		int totalDistance = xDistance + yDistance;
+		double xDistance = Math.abs(goXPos - playerXPos);
+		double yDistance = Math.abs(goYPos - playerYPos);
+		double totalDistance = xDistance + yDistance;
 		
 		//Set the vector value
 		this.setVector((xDistance/totalDistance));
@@ -61,6 +64,10 @@ public class Sock extends Entity{
 		}else if(playerYPos == goYPos){
 			this.setXVel(0);
 		}
+		
+		//Set starting position
+		this.setX(playerXPos);
+		this.setY(playerYPos);
 	}
 	
 	//Draw the sock on the panel
@@ -69,8 +76,8 @@ public class Sock extends Entity{
 		double playerX = Player.getInstance().getX();
 		double playerY = Player.getInstance().getY();
 
-		if(sockImage != null){
-			g.drawImage(sockImage,
+		if(this.getImg() != null){
+			g.drawImage(this.getImg(),
 					(int)(this.getX() - playerX)+GamePanel.WIDTH/2,
 					(int)(this.getY() - playerY)+GamePanel.HEIGHT/2,
 					this.getImg().getWidth(),
