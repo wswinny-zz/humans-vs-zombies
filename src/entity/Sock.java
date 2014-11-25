@@ -49,18 +49,18 @@ public class Sock extends Entity{
 		
 		//Determine the xVelocity for the sock
 		if(goXPos > playerXPos){
-			this.setXVel(1);
+			this.setXVel(5);
 		}else if(playerXPos > goXPos){
-			this.setXVel(-1);
+			this.setXVel(-5);
 		}else if(playerXPos == goXPos){
 			this.setXVel(0);
 		}
 		
 		//Determine the yVelocity for the sock
 		if(goYPos > playerYPos){
-			this.setYVel(1);
+			this.setYVel(5);
 		}else if(playerYPos > goYPos){
-			this.setYVel(-1);
+			this.setYVel(-5);
 		}else if(playerYPos == goYPos){
 			this.setXVel(0);
 		}
