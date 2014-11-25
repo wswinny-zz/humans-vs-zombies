@@ -52,7 +52,7 @@ public class Audio {
 	public void playObjReached(){
 		AudioInputStream in;
 		try {
-			in = AudioSystem.getAudioInputStream(Audio.class.getResource("objReached.wav"));
+			in = AudioSystem.getAudioInputStream(Audio.class.getResource("/objReached.wav"));
 			startEffect(in);
 		} catch (UnsupportedAudioFileException | IOException e) {
 			System.out.println("\nError: objReached sound effect failed to play.\n");
@@ -64,7 +64,18 @@ public class Audio {
 	public void playObjFailed(){
 		AudioInputStream in;
 		try {
-			in = AudioSystem.getAudioInputStream(Audio.class.getResource("objFailed.wav"));
+			in = AudioSystem.getAudioInputStream(Audio.class.getResource("/objFailed.wav"));
+			startEffect(in);
+		} catch (UnsupportedAudioFileException | IOException e) {
+			System.out.println("\nError: objFailed sound effect failed to play.\n");
+		}
+	}
+	
+	//Plays a "click" effect when the user hovers over an option on the main menu
+	public void playMenuEffect(){
+		AudioInputStream in;
+		try {
+			in = AudioSystem.getAudioInputStream(Audio.class.getResource("/menu_selection.wav"));
 			startEffect(in);
 		} catch (UnsupportedAudioFileException | IOException e) {
 			System.out.println("\nError: objFailed sound effect failed to play.\n");
