@@ -20,47 +20,54 @@ import entity.Zombie;
  ************************************************************************/
 public class ObjectiveMode extends State
 {
-	private Map map;
-	private Player player;
+	private static Map map;
+	
+	private static Player player;
 	private ArrayList<Zombie> zombies;
-	private HUD hud;
-	private Objective objective;
+	private static Objective objective;
+	
+	private static HUD hud;
 	
 	public ObjectiveMode()
 	{
-		this.map = new Map(64);
-		this.player = Player.getInstance();
+		ObjectiveMode.map = new Map(64);
+		ObjectiveMode.player = Player.getInstance();
 		this.zombies = new ArrayList<Zombie>();
 		
-		this.hud = new HUD();
+		ObjectiveMode.hud = new HUD();
 		
 		this.init();
+	}
+	
+	public static Objective getObjective()
+	{
+		return ObjectiveMode.objective;
 	}
 
 	@Override 
 	public void init()
 	{
-		this.map.loadTileset("/tilesSet.png");
-		this.map.loadMap("/map.map");
+		ObjectiveMode.map.loadTileset("/tilesSet.png");
+		ObjectiveMode.map.loadMap("/map.map");
 		
 		for(int i = 0; i < 100; ++i)
 			this.zombies.add(new Zombie());
 		
-		this.objective = new Objective();
+		ObjectiveMode.objective = new Objective();
 	}
 
 	@Override
 	public void draw(Graphics g)
 	{
-		this.map.draw(g);
+		ObjectiveMode.map.draw(g);
 		
 		for(int i = 0; i < this.zombies.size(); ++i)
 			this.zombies.get(i).draw(g);
 		
-		this.objective.draw(g);
+		ObjectiveMode.objective.draw(g);
 		
-		this.player.draw(g);
-		this.hud.draw(g);
+		ObjectiveMode.player.draw(g);
+		ObjectiveMode.hud.draw(g);
 	}
 	
 	@Override
@@ -69,8 +76,8 @@ public class ObjectiveMode extends State
 		for(int i = 0; i < this.zombies.size(); ++i)
 			this.zombies.get(i).update();
 		
-		this.player.update();
-		this.map.setPosition((int)this.player.getX(), (int)this.player.getY());
+		ObjectiveMode.player.update();
+		ObjectiveMode.map.setPosition((int)ObjectiveMode.player.getX(), (int)ObjectiveMode.player.getY());
 	}
 
 	@Override
