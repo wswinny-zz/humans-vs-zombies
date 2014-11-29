@@ -125,7 +125,16 @@ public class Map
 				String [] numbers = line.split(",");
 				
 				for(int col = 0; col < numbers.length; ++col)
-					Map.visibleMap[row][col] = new Tile(this.tiles.get(Integer.parseInt(numbers[col].split(":")[0]) - 1), Integer.parseInt(numbers[col].split(":")[1]));
+				{
+					try
+					{
+						Map.visibleMap[row][col] = new Tile(this.tiles.get(Integer.parseInt(numbers[col].split(":")[0]) - 1), Integer.parseInt(numbers[col].split(":")[1]));
+					}
+					catch(Exception e)
+					{
+						
+					}
+				}
 			}
 		}
 		catch (NumberFormatException | IOException e)
