@@ -31,7 +31,7 @@ public class HUD
 	public HUD(){
 		try {
 			sock = ImageIO.read(HUD.class.getResourceAsStream("/sock.png"));
-			miniMap = ImageIO.read(HUD.class.getResourceAsStream("/map2-img.png"));
+			miniMap = ImageIO.read(HUD.class.getResourceAsStream("/map-img.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
