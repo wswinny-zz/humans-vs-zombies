@@ -106,7 +106,6 @@ public class Player extends Entity {
 			this.setVector(1);
 		}
 		
-		
 		if(AKeyDown && !DKeyDown){
 			this.setXVel(-1);
 			this.setImg(this.images.get(1));
@@ -130,14 +129,14 @@ public class Player extends Entity {
 		
 		if(WKeyDown){
 			if(AKeyDown)
-				this.setImg(this.images.get(81));
+				this.setImg(this.images.get(13));
 			if(DKeyDown)
-				this.setImg(this.images.get(83));				
+				this.setImg(this.images.get(15));				
 		}else if(SKeyDown){
 			if(AKeyDown)
-				this.setImg(this.images.get(80));
+				this.setImg(this.images.get(12));
 			if(DKeyDown)
-				this.setImg(this.images.get(82));	
+				this.setImg(this.images.get(14));	
 		}
 		
 		
