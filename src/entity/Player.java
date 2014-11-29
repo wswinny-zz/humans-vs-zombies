@@ -37,7 +37,6 @@ public class Player extends Entity {
 	
 	
 	private Player(){
-		
 		this.images = new ArrayList<BufferedImage>();
 		
 		this.socks = new ArrayList<Sock>();
@@ -64,7 +63,7 @@ public class Player extends Entity {
 		this.setXVel(0);
 		this.setYVel(0);
 		this.setVector(1);
-		this.setSpeedMultiplier(1.0);
+		this.setSpeedMultiplier(1.25);
 		
 		setWKeyDown(false);
 		setAKeyDown(false);
@@ -169,22 +168,12 @@ public class Player extends Entity {
 	public boolean intersectsWithMap(double xPos,double yPos){
 		Tile[][] tiles = Map.getVisibleMap();
 		int tileWidth = tiles[0][0].getImage().getWidth();
+
+		int xTile = (int)((xPos+getWidth()/2)/tileWidth);
+		int yTile = (int)((yPos+getWidth()/2)/tileWidth);
+		if(xTile < 0 || yTile < 0) return true;
 		
-		
-		for(int row = 0; row < tiles.length; row++){
-			for(int col = 0; col < tiles[row].length; col++){
-				if(tiles[row][col].getTileType() == Tile.BLOCKED){
-					if(col*tileWidth < xPos+10 && col*tileWidth + tileWidth  > xPos -10){
-						if(row*tileWidth < yPos+16 && row*tileWidth + tileWidth > yPos -7){
-							//System.out.println("Intersection!");
-							return true;
-						}
-					}
-				}
-			}
-		}
-		
-		
+		if(tiles[yTile][xTile].getTileType() == Tile.BLOCKED) return true;
 		
 		return false;
 	}

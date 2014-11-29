@@ -2,7 +2,6 @@ package entity;
 
 import game.GamePanel;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -12,9 +11,9 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-import state.StateManager;
 import map.Map;
 import map.Tile;
+import state.StateManager;
 
 /************************************************************
  * Zombie														
@@ -36,8 +35,12 @@ public class Zombie extends Entity {
 		lastTime = new Date().getTime();
 		
 		//Generate position 200 from the left and right
-		double xPos = 100 + random.nextInt((GamePanel.WIDTH*GamePanel.SCALE*2)-200);
-		double yPos = 100 + random.nextInt((GamePanel.HEIGHT*GamePanel.SCALE*2)-200);
+		
+		System.out.println();
+		double xPos = random.nextInt((Map.getVisibleMap()[0].length*Map.getTileSize()));
+		double yPos = random.nextInt((Map.getVisibleMap()[0].length*Map.getTileSize()));
+		
+		
 		double xVel = 1;
 		double yVel = 1;
 		double vec = random.nextDouble();
@@ -45,8 +48,8 @@ public class Zombie extends Entity {
 		
 		//if it intersected try again
 		while(intersectsWithMap(xPos, yPos)){
-			xPos = 100 + random.nextInt((GamePanel.WIDTH*GamePanel.SCALE*2)-200);
-			yPos = 100 + random.nextInt((GamePanel.HEIGHT*GamePanel.SCALE*2)-200);
+			xPos = random.nextInt((Map.getVisibleMap()[0].length*Map.getTileSize()));
+			yPos = random.nextInt((Map.getVisibleMap()[0].length*Map.getTileSize()));
 		}
 		
 		this.setWidth(40);
@@ -80,39 +83,57 @@ public class Zombie extends Entity {
 		Tile[][] tiles = Map.getVisibleMap();
 		int tileWidth = tiles[0][0].getImage().getWidth();
 		
-		//for each row
-		for(int row = 0; row < tiles.length; row++){
-			//for each column in row
-			for(int col = 0; col < tiles[row].length; col++){
-				//if the tile is non-walkable for zombies
-				if(tiles[row][col].getTileType() == Tile.BLOCKED || tiles[row][col].getTileType() == Tile.ZOMBIE_BLOCKED){
-					//if they're within this tile on the x axis
-					if(col*tileWidth < xPos+ this.getWidth()/2 && col*tileWidth + tileWidth  > xPos -this.getWidth()/2){
-						//if they're within this tile on y axis
-						if(row*tileWidth < yPos+ this.getHeight()/2 && row*tileWidth + tileWidth > yPos - this.getHeight()/2){
-							//tell them no!
-							return true;
-						}
-					}
-				}
-			}
-		}
 		
+		int xTile = (int)(xPos/tileWidth);
+		int yTile = (int)(yPos/tileWidth);
 		
+		if(xTile < 0 || yTile < 0) return true;
+		if(xTile >= tiles[0].length || yTile >= tiles.length) return true;
+		if(tiles[yTile][xTile].getTileType() == Tile.BLOCKED 
+				|| tiles[yTile][xTile].getTileType() == Tile.ZOMBIE_BLOCKED) return true;
+		
+	
 		
 		return false;
 	}
 	
-	public void update(){
+	public int distance(double x1, double y1, double x2, double y2){
+		return (int)Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+	}
+	
+	public void trackPlayer(){
+		double xPLoc = Player.getInstance().getX();
+		double yPLoc = Player.getInstance().getY();
+
+		if(intersectsWithMap(xPLoc, yPLoc)) return;
 		
-		/* FAR TOO MUCH BOGO SORT GOING ON IN THIS FUNCTION */
-		/* SHOULD SUFFICE FOR NOW */
+		
+		double xRay = this.getX();
+		double yRay = this.getY();
+		double xDiff = xPLoc - xRay;
+		double yDiff = yPLoc - yRay;
+		double xVec = xDiff / (Math.abs(xDiff)+Math.abs(yDiff));
+		double yVec = yDiff / (Math.abs(xDiff)+Math.abs(yDiff));
+
+		if(distance(xRay, yRay, xPLoc, yPLoc) < 100000){
+			while(distance(xRay, yRay, xPLoc, yPLoc) > 16){
+				if(intersectsWithMap(xRay, yRay)) return;
+				xRay += xVec*32;
+				yRay += yVec*32;
+			}
+			this.setVector(Math.abs(xVec));
+			this.setXVel(xDiff/Math.abs(xDiff));
+			this.setYVel(yDiff/Math.abs(yDiff));
+			return;
+		}else return;
+	}
+	
+	public void update(){
+		trackPlayer();
 		
 		for(Sock s : Player.getInstance().getSocks()){
-			if(s.getX() + 16 > this.getX() && s.getX() -16 < this.getX()){
-				if(s.getY() + 16 > this.getY() && s.getY() -16 < this.getY()){
-					this.setStunned(true);
-				}
+			if(distance(s.getX()+16, s.getY()+16, this.getX(), this.getY()) < 16){
+				this.setStunned(true);
 			}		
 
 		}
@@ -132,9 +153,7 @@ public class Zombie extends Entity {
 			//work in the speed multiplier
 			double multTempX = velTempX * speedMultiplier;
 			double multTempY = velTempY * speedMultiplier;
-			
-	
-			
+						
 			//calc final pos
 			double xTemp = multTempX + this.getX();
 			double yTemp = multTempY + this.getY();
@@ -193,13 +212,12 @@ public class Zombie extends Entity {
 	}
 	
 	public boolean intersectsWithPlayer(double x, double y){
-		if(Player.getInstance().getX() < x
-				&& Player.getInstance().getX() + 32 > x
-				&& Player.getInstance().getY() < y
-				&& Player.getInstance().getY() + 32 > y){
+		if(Player.getInstance().getX() < x + 16
+				&& Player.getInstance().getX() + 16 > x
+				&& Player.getInstance().getY() < y + 16
+				&& Player.getInstance().getY() + 16 > y){
 			return true;
-		}else
-			return false;
+		}else return false;
 	}
 	
 	@Override
