@@ -81,8 +81,14 @@ public class Player extends Entity {
 	}
 	
 	public void update(){
+		ArrayList<Sock> removeList = new ArrayList<Sock>();
 		for(Sock s : socks){
 			s.update();
+			if(s.isDone() == true) removeList.add(s);
+		}
+		
+		for(Sock s : removeList){
+			socks.remove(s);
 		}
 		
 		//System.out.println("SKey:" + SKeyDown + " WKey:" + WKeyDown + " AKey:" + AKeyDown + " DKey:" + DKeyDown);
@@ -208,18 +214,15 @@ public class Player extends Entity {
 	
 	public void mouseClicked(MouseEvent e){
 		if(this.numSocks > 0){
-			double mousePosX = getX() - ((GamePanel.WIDTH*GamePanel.SCALE/2) - e.getPoint().x);
-			double mousePosY = getY() - ((GamePanel.HEIGHT*GamePanel.SCALE/2) - e.getPoint().y);
+			double mousePosX = (e.getPoint().x/GamePanel.SCALE + (getX() - GamePanel.WIDTH/2));
+			double mousePosY = (e.getPoint().y/GamePanel.SCALE + (getY() - GamePanel.HEIGHT/2));
 			
 			//System.out.println(mousePosX + "," + mousePosY + " " + this.getX() + "," + this.getY());
 			this.socks.add(new Sock((int)mousePosX, (int)mousePosY, (int)this.getX(), (int)this.getY()));
-			numSocks--;
+			//numSocks--;
 		}
 	}
-	
-	public void mouseMoved(MouseEvent e){
-		
-	}
+
 	
 	public void keyPressed(KeyEvent e){
 		//System.out.println(""+e.getKeyChar() + " Pressed!");
@@ -295,5 +298,9 @@ public class Player extends Entity {
 
 	public void setNumSocks(int numSocks) {
 		this.numSocks = numSocks;
+	}
+
+	public ArrayList<Sock> getSocks() {
+		return socks;
 	}
 }

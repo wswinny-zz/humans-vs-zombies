@@ -108,80 +108,85 @@ public class Zombie extends Entity {
 		/* FAR TOO MUCH BOGO SORT GOING ON IN THIS FUNCTION */
 		/* SHOULD SUFFICE FOR NOW */
 		
+		for(Sock s : Player.getInstance().getSocks()){
+			if(s.getX() + 16 > this.getX() && s.getX() -16 < this.getX()){
+				if(s.getY() + 16 > this.getY() && s.getY() -16 < this.getY()){
+					this.setStunned(true);
+				}
+			}		
+
+		}
 		
-		//calculate random update delta
-		long delta = (new Date().getTime() - lastTime)/1000;
 		
 		//calculate stun delta 
 		long stunDelta = (new Date().getTime() - stunnedTime)/1000;
 		
 		//Handle stun
-		if(stunDelta > 10){
+		if(stunDelta > 10 && this.stunned){
 			this.stunned = false;
-		}
-		
-		
-		//put in the default values
-		double velTempX = (this.getXVel())*this.getVector();
-		double velTempY = (this.getYVel())*(1-this.getVector());
-
-		//work in the speed multiplier
-		double multTempX = velTempX * speedMultiplier;
-		double multTempY = velTempY * speedMultiplier;
-		
-
-		
-		//calc final pos
-		double xTemp = multTempX + this.getX();
-		double yTemp = multTempY + this.getY();
-		
-		if(intersectsWithPlayer(xTemp, yTemp)){
-			StateManager.setState(StateManager.DEATH_STATE);
-		}
-		
-		//While the time delta is too high or the point intersects with the map
-		if(intersectsWithMap(xTemp, yTemp)){
-			if(intersectsWithMap(xTemp, this.getY())){
-				this.setXVel(this.getXVel()*-1);
-			}else if(intersectsWithMap(this.getX(), yTemp)){
-				this.setYVel(this.getYVel()*-1);
-			}else{
-				this.setVector(1-this.getVector());
+		}else if(!this.stunned){
+			//put in the default values
+			double velTempX = (this.getXVel())*this.getVector();
+			double velTempY = (this.getYVel())*(1-this.getVector());
+	
+			//work in the speed multiplier
+			double multTempX = velTempX * speedMultiplier;
+			double multTempY = velTempY * speedMultiplier;
+			
+	
+			
+			//calc final pos
+			double xTemp = multTempX + this.getX();
+			double yTemp = multTempY + this.getY();
+			
+			if(intersectsWithPlayer(xTemp, yTemp)){
+				StateManager.setState(StateManager.DEATH_STATE);
 			}
 			
-			this.lastTime = new Date().getTime();
+			//While the time delta is too high or the point intersects with the map
+			if(intersectsWithMap(xTemp, yTemp)){
+				if(intersectsWithMap(xTemp, this.getY())){
+					this.setXVel(this.getXVel()*-1);
+				}else if(intersectsWithMap(this.getX(), yTemp)){
+					this.setYVel(this.getYVel()*-1);
+				}else{
+					this.setVector(1-this.getVector());
+				}
+				
+				this.lastTime = new Date().getTime();
+				
+				//recalculate
+				velTempX = (this.getXVel())*this.getVector();
+				velTempY = (this.getYVel())*(1-this.getVector());
+	
+	
+				multTempX = velTempX * speedMultiplier;
+				multTempY = velTempY * speedMultiplier;
+				
+				xTemp = multTempX + this.getX();
+				yTemp = multTempY + this.getY();
+			}
 			
-			//recalculate
-			velTempX = (this.getXVel())*this.getVector();
-			velTempY = (this.getYVel())*(1-this.getVector());
-
-
-			multTempX = velTempX * speedMultiplier;
-			multTempY = velTempY * speedMultiplier;
+	
 			
-			xTemp = multTempX + this.getX();
-			yTemp = multTempY + this.getY();
+			//set the x
+			//System.out.println(this.getX() + "+" + xTemp);
+			
+			if(this.getVector() > .5){
+				if(this.getXVel() > 0)
+					this.setImg(Zombie.images.get(1));
+				if(this.getXVel() < 0)
+					this.setImg(Zombie.images.get(3));	
+			}else{
+				if(this.getYVel() > 0)
+					this.setImg(Zombie.images.get(0));
+				if(this.getYVel() < 0)
+					this.setImg(Zombie.images.get(2));
+			}
+			
+			this.setX(xTemp);
+			this.setY(yTemp);
 		}
-		
-
-		
-		//set the x
-		//System.out.println(this.getX() + "+" + xTemp);
-		
-		if(this.getVector() > .5){
-			if(this.getXVel() > 0)
-				this.setImg(Zombie.images.get(1));
-			if(this.getXVel() < 0)
-				this.setImg(Zombie.images.get(3));	
-		}else{
-			if(this.getYVel() > 0)
-				this.setImg(Zombie.images.get(0));
-			if(this.getYVel() < 0)
-				this.setImg(Zombie.images.get(2));
-		}
-		
-		this.setX(xTemp);
-		this.setY(yTemp);
 		
 		
 		
