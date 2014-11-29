@@ -23,7 +23,7 @@ public class ObjectiveMode extends State
 	private static Map map;
 	
 	private static Player player;
-	private ArrayList<Zombie> zombies;
+	private static ArrayList<Zombie> zombies;
 	private static Objective objective;
 	
 	private static HUD hud;
@@ -32,7 +32,7 @@ public class ObjectiveMode extends State
 	{
 		ObjectiveMode.map = new Map(64);
 		ObjectiveMode.player = Player.getInstance();
-		this.zombies = new ArrayList<Zombie>();
+		ObjectiveMode.zombies = new ArrayList<Zombie>();
 		
 		ObjectiveMode.hud = new HUD();
 		
@@ -43,6 +43,18 @@ public class ObjectiveMode extends State
 	{
 		return ObjectiveMode.objective;
 	}
+	
+	public static void decreaseZombieSpeedMultiplier()
+	{
+		for(Zombie z: ObjectiveMode.zombies)
+			z.setSpeedMultiplier(z.getSpeedMultiplier() - 0.5);
+	}
+	
+	public static void increaseZombieSpeedMultiplier()
+	{
+		for(Zombie z: ObjectiveMode.zombies)
+			z.setSpeedMultiplier(z.getSpeedMultiplier() + 0.5);
+	}
 
 	@Override 
 	public void init()
@@ -51,7 +63,7 @@ public class ObjectiveMode extends State
 		ObjectiveMode.map.loadMap("/map.map");
 		
 		for(int i = 0; i < 100; ++i)
-			this.zombies.add(new Zombie());
+			ObjectiveMode.zombies.add(new Zombie());
 		
 		ObjectiveMode.objective = new Objective();
 	}
@@ -61,8 +73,8 @@ public class ObjectiveMode extends State
 	{
 		ObjectiveMode.map.draw(g);
 		
-		for(int i = 0; i < this.zombies.size(); ++i)
-			this.zombies.get(i).draw(g);
+		for(int i = 0; i < ObjectiveMode.zombies.size(); ++i)
+			ObjectiveMode.zombies.get(i).draw(g);
 		
 		ObjectiveMode.objective.draw(g);
 		
@@ -73,8 +85,8 @@ public class ObjectiveMode extends State
 	@Override
 	public void update()
 	{
-		for(int i = 0; i < this.zombies.size(); ++i)
-			this.zombies.get(i).update();
+		for(int i = 0; i < ObjectiveMode.zombies.size(); ++i)
+			ObjectiveMode.zombies.get(i).update();
 		
 		ObjectiveMode.player.update();
 		ObjectiveMode.map.setPosition((int)ObjectiveMode.player.getX(), (int)ObjectiveMode.player.getY());
