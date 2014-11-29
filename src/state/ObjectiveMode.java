@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import map.Map;
+import entity.Objective;
 import entity.Player;
 import entity.Zombie;
 
@@ -23,6 +24,7 @@ public class ObjectiveMode extends State
 	private Player player;
 	private ArrayList<Zombie> zombies;
 	private HUD hud;
+	private Objective objective;
 	
 	public ObjectiveMode()
 	{
@@ -43,6 +45,8 @@ public class ObjectiveMode extends State
 		
 		for(int i = 0; i < 100; ++i)
 			this.zombies.add(new Zombie());
+		
+		this.objective = new Objective();
 	}
 
 	@Override
@@ -52,6 +56,8 @@ public class ObjectiveMode extends State
 		
 		for(int i = 0; i < this.zombies.size(); ++i)
 			this.zombies.get(i).draw(g);
+		
+		this.objective.draw(g);
 		
 		this.player.draw(g);
 		this.hud.draw(g);
@@ -70,9 +76,7 @@ public class ObjectiveMode extends State
 	@Override
 	public void mouseTriggered(MouseEvent e)
 	{
-		if(e.getID() == MouseEvent.MOUSE_MOVED)
-			Player.getInstance().mouseMoved(e);
-		else if(e.getID() == MouseEvent.MOUSE_CLICKED)
+		if(e.getID() == MouseEvent.MOUSE_PRESSED)
 			Player.getInstance().mouseClicked(e);
 	}
 
