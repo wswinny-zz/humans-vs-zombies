@@ -40,7 +40,7 @@ public class Player extends Entity {
 		this.images = new ArrayList<BufferedImage>();
 		
 		this.socks = new ArrayList<Sock>();
-		this.setNumSocks(3);
+		this.setNumSocks(10);
 		
 		try {		
 			BufferedImage tileset;
@@ -207,7 +207,7 @@ public class Player extends Entity {
 			
 			//System.out.println(mousePosX + "," + mousePosY + " " + this.getX() + "," + this.getY());
 			this.socks.add(new Sock((int)mousePosX, (int)mousePosY, (int)this.getX(), (int)this.getY()));
-			//numSocks--;
+			numSocks--;
 		}
 	}
 
