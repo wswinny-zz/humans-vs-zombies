@@ -170,11 +170,11 @@ public class Player extends Entity {
 		int tileWidth = tiles[0][0].getImage().getWidth();
 
 		int xTile = (int)((xPos+getWidth()/2)/tileWidth);
-		int yTile = (int)((yPos+getWidth()/2)/tileWidth);
-		if(xTile < 0 || yTile < 0) return true;
+		int yTileTop = (int)((yPos-16)/tileWidth);
+		int yTileBott = (int)((yPos+16)/tileWidth);
 		
-		if(tiles[yTile][xTile].getTileType() == Tile.BLOCKED) return true;
-		
+		if(tiles[yTileTop][xTile].getTileType() == Tile.BLOCKED) return true;
+		if(tiles[yTileBott][xTile].getTileType() == Tile.BLOCKED) return true;
 		return false;
 	}
 	

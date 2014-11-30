@@ -15,6 +15,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import map.Map;
+import map.Tile;
 
 /************************************************************
  * HUD														
@@ -71,7 +72,42 @@ public class HUD
 		g2.drawOval((int)(GamePanel.WIDTH - (objectivePercentX*96)), (int)(96*objectivePercentY), 2, 2);
 		
 		
+		//DRAW PLAYER STATE
+		
+		boolean playerState = intersectsWithMap(Player.getInstance().getX(), Player.getInstance().getY());
+		
+		g2.setFont(new Font("Arial", Font.BOLD, 24));
+		if(playerState){
+			g2.setColor(Color.GREEN);
+			g2.drawString("SAFE", 3, GamePanel.HEIGHT - 5);
+		}
+		else{
+			g2.setColor(Color.RED);
+			g2.drawString("DANGER", 3, GamePanel.HEIGHT - 5);
+		}
+		
+		
+		
 		
 		g2.dispose();		
 	}
+	
+	
+	public boolean intersectsWithMap(double xPos,double yPos){
+		Tile[][] tiles = Map.getVisibleMap();
+		int tileWidth = tiles[0][0].getImage().getWidth();
+		
+		
+		int xTile = (int)(xPos/tileWidth);
+		int yTile = (int)(yPos/tileWidth);
+		
+		if(xTile < 0 || yTile < 0) return true;
+		if(xTile >= tiles[0].length || yTile >= tiles.length) return true;
+		if(tiles[yTile][xTile].getTileType() == Tile.ZOMBIE_BLOCKED) return true;
+		
+	
+		
+		return false;
+	}
+	
 }
