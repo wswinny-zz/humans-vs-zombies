@@ -16,8 +16,8 @@ import javax.imageio.ImageIO;
  ************************************************************************/
 public class Sock extends Entity{
 	private boolean isDone;
-	private double endPosX;
-	private double endPosY;
+	private double startPosX;
+	private double startPosY;
 	private static BufferedImage sockImage;
 	
 	//Constructor
@@ -42,9 +42,9 @@ public class Sock extends Entity{
 		//Set the vector value
 		this.setVector((xDistance/totalDistance));
 		
-		//Set end x/y values
-		this.setEndPosX(goXPos);
-		this.setEndPosY(goYPos);
+		//Set start x/y values
+		this.setStartPosX(playerXPos);
+		this.setStartPosY(playerYPos);
 		
 		
 		//Determine the xVelocity for the sock
@@ -87,8 +87,8 @@ public class Sock extends Entity{
 	
 	//Update the location of the sock
 	public void update(){
-		double xPos = this.getEndPosX();
-		double yPos = this.getEndPosY();
+		double xPos = this.getStartPosX();
+		double yPos = this.getStartPosY();
 		 
 		//Obtain the difference between the sock's current position and the 
 		//destination location
@@ -96,7 +96,7 @@ public class Sock extends Entity{
 				+ (yPos-this.getY())*(yPos-this.getY()));
 		
 		//Determine whether or not the sock has reached its final destination
-		if(distance > 250){
+		if(distance > 300){
 			this.isDone = true;
 		}
 		
@@ -117,19 +117,19 @@ public class Sock extends Entity{
 		this.isDone = isDone;
 	}
 
-	public double getEndPosY() {
-		return endPosY;
+	public double getStartPosY() {
+		return startPosY;
 	}
 
-	public void setEndPosY(double endPosY) {
-		this.endPosY = endPosY;
+	public void setStartPosY(double startPosY) {
+		this.startPosY = startPosY;
 	}
 
-	public double getEndPosX() {
-		return endPosX;
+	public double getStartPosX() {
+		return startPosX;
 	}
 
-	public void setEndPosX(double endPosX) {
-		this.endPosX = endPosX;
+	public void setStartPosX(double startPosX) {
+		this.startPosX = startPosX;
 	}
 }
