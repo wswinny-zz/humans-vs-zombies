@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 
 import map.Map;
 import map.Tile;
+import util.Audio;
 
 /************************************************************************
  * Objective														
@@ -20,19 +21,23 @@ import map.Tile;
  ************************************************************************/
 public class Objective extends Entity{
 	private static int objectiveDuration;
+	private boolean playerReached = false;
 	
 	//Constructor
 	public Objective(){
 		//Generate position 200 from the left and right
 		Random random = new Random();
-		double xPos = 100 + random.nextInt((GamePanel.WIDTH*GamePanel.SCALE*2)-200);
-		double yPos = 100 + random.nextInt((GamePanel.HEIGHT*GamePanel.SCALE*2)-200);
+		double xPos = random.nextInt((Map.getVisibleMap()[0].length*Map.getTileSize()));
+		double yPos = random.nextInt((Map.getVisibleMap()[0].length*Map.getTileSize()));
 
 		//if it intersected try again
 		while(intersectsWithMap(xPos, yPos)){
-			xPos = 100 + random.nextInt((GamePanel.WIDTH*GamePanel.SCALE*2)-200);
-			yPos = 100 + random.nextInt((GamePanel.HEIGHT*GamePanel.SCALE*2)-200);
+			xPos = random.nextInt((Map.getVisibleMap()[0].length*Map.getTileSize()));
+			yPos = random.nextInt((Map.getVisibleMap()[0].length*Map.getTileSize()));
 		}		
+		
+		xPos = Player.getInstance().getX() + 100;
+		yPos = Player.getInstance().getY() + 100;
 		
 		//Set the x and y position of the objective
 		this.setX(xPos);
@@ -55,24 +60,30 @@ public class Objective extends Entity{
 		Tile[][] tiles = Map.getVisibleMap();
 		int tileWidth = tiles[0][0].getImage().getWidth();
 		
-		//for each row
-		for(int row = 0; row < tiles.length; row++){
-			//for each column in row
-			for(int col = 0; col < tiles[row].length; col++){
-				//if the tile is non-walkable
-				if(tiles[row][col].getTileType() == Tile.BLOCKED){
-					//if they're within this tile on the x axis
-					if(col*tileWidth < xPos+10 && col*tileWidth + tileWidth  > xPos -10){
-						//if they're within this tile on y axis
-						if(row*tileWidth < yPos+16 && row*tileWidth + tileWidth > yPos -7){
-							//tell them no!
-							return true;
-						}
-					}
-				}
-			}
-		}
+		int xTile = (int)(xPos/tileWidth);
+		int yTile = (int)(yPos/tileWidth);
+		
+		if(xTile < 0 || yTile < 0) return true;
+		if(xTile >= tiles[0].length || yTile >= tiles.length) return true;
+		if(tiles[yTile][xTile].getTileType() == Tile.BLOCKED) return true;
+	
 		return false;
+	}
+
+	//Returns whether or not the objective has been reached
+	public boolean objectiveReached(){
+		double playerX = Player.getInstance().getX();
+		double playerY = Player.getInstance().getY();
+		
+		double xDistance = Math.abs(playerX - this.getX());
+		double yDistance = Math.abs(playerY - this.getY());
+		
+		if(xDistance <= 30 && yDistance <= 30){
+			Audio.getInstance().playObjReached();
+			return true;
+		}
+		else
+			return false;
 	}
 	
 	//Draw the objective onto the panel
@@ -80,7 +91,13 @@ public class Objective extends Entity{
 	public void draw(Graphics g){
 		double playerX = Player.getInstance().getX();
 		double playerY = Player.getInstance().getY();
+		
+		if(!playerReached){
+			if(objectiveReached())
+				playerReached = true;
+		}
 
+		//Paint the objective
 		if(this.getImg() != null){
 			g.drawImage(this.getImg(),
 					(int)(this.getX() - playerX)+GamePanel.WIDTH/2,

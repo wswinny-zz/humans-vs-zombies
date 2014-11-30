@@ -45,7 +45,13 @@ public class Audio {
 	
 	//Plays a flying sock sound effect
 	public void playSockThrow(){
-		
+		AudioInputStream in;
+		try {
+			in = AudioSystem.getAudioInputStream(Audio.class.getResource("/sockThrow.wav"));
+			startEffect(in);
+		} catch (UnsupportedAudioFileException | IOException e) {
+			System.out.println("\nError: objFailed sound effect failed to play.\n");
+		}
 	}
 	
 	//Play a happy sound effect when the objective is reached
@@ -82,6 +88,17 @@ public class Audio {
 		}
 	}
 	
+	//Plays a "raise up" effect when speed boost is activated
+	public void playSpeedBoostEffect(){
+		AudioInputStream in;
+		try {
+			in = AudioSystem.getAudioInputStream(Audio.class.getResource("/spdBoost.wav"));
+			startEffect(in);
+		} catch (UnsupportedAudioFileException | IOException e) {
+			System.out.println("\nError: objFailed sound effect failed to play.\n");
+		}
+	}
+	
 	//Plays a zombie grunt relative to the distance from the
 	//player
 	public void playZombieGrunt(double distance){
@@ -90,12 +107,24 @@ public class Audio {
 	
 	//Plays a sound effect when the player dies (loses)
 	public void playDeath(){
-	
+		AudioInputStream in;
+		try {
+			in = AudioSystem.getAudioInputStream(Audio.class.getResource("/deathEffect.wav"));
+			startEffect(in);
+		} catch (UnsupportedAudioFileException | IOException e) {
+			System.out.println("\nError: objFailed sound effect failed to play.\n");
+		}
 	}
 	
 	//Plays the background music
 	public void startBackgroundMusic(){
-		
+		AudioInputStream in;
+		try {
+			in = AudioSystem.getAudioInputStream(Audio.class.getResource("/newBg.wav"));
+			startMusic(in);
+		} catch (UnsupportedAudioFileException | IOException e) {
+			System.out.println("\nError: Death music failed to play.\n");
+		}
 	}
 	
 	//Starts the song that is provided to the function
@@ -137,7 +166,7 @@ public class Audio {
 	public void startMenuMusic(){
 		AudioInputStream in;
 		try {
-			in = AudioSystem.getAudioInputStream(Audio.class.getResource("/title.wav"));
+			in = AudioSystem.getAudioInputStream(Audio.class.getResource("/newTitle.wav"));
 			startMusic(in);
 		} catch (UnsupportedAudioFileException | IOException e) {
 			System.out.println("\nError: Menu music failed to play.\n");
@@ -148,7 +177,7 @@ public class Audio {
 	public void startDeathMusic(){
 		AudioInputStream in;
 		try {
-			in = AudioSystem.getAudioInputStream(Audio.class.getResource("/death.wav"));
+			in = AudioSystem.getAudioInputStream(Audio.class.getResource("/newDeath.wav"));
 			startMusic(in);
 		} catch (UnsupportedAudioFileException | IOException e) {
 			System.out.println("\nError: Death music failed to play.\n");

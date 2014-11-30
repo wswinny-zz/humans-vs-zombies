@@ -232,6 +232,7 @@ public class Zombie extends Entity {
 		//System.out.println("X:"+(int)(this.getX() - playerX));
 		//g.fillOval((int)(this.getX() - playerX)+GamePanel.WIDTH/2,(int)(this.getY() - playerY)+GamePanel.HEIGHT/2, 10, 10);
 
+		if(distance(playerX, playerY, this.getX(),this.getY()) > 300) return;
 		if(this.getImg() != null){
 			g.drawImage(this.getImg(),
 					(int)(this.getX() - playerX - this.getWidth()/2)+GamePanel.WIDTH/2,
