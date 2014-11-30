@@ -76,7 +76,7 @@ public class Sock extends Entity{
 		double playerX = Player.getInstance().getX();
 		double playerY = Player.getInstance().getY();
 
-		if(this.getImg() != null){
+		if(this.getImg() != null && !this.isDone){
 			g.drawImage(this.getImg(),
 					(int)(this.getX() - playerX)+GamePanel.WIDTH/2,
 					(int)(this.getY() - playerY)+GamePanel.HEIGHT/2,
@@ -87,17 +87,22 @@ public class Sock extends Entity{
 	
 	//Update the location of the sock
 	public void update(){
-		double xPos;
-		double yPos;
+		double xPos = this.getEndPosX();
+		double yPos = this.getEndPosY();
+		 
+		//Obtain the difference between the sock's current position and the 
+		//destination location
+		int distance = (int)Math.sqrt((xPos-this.getX())*(xPos-this.getX()) 
+				+ (yPos-this.getY())*(yPos-this.getY()));
+		
+		//Determine whether or not the sock has reached its final destination
+		if(distance > 250){
+			this.isDone = true;
+		}
 		
 		//Change the position according to the velocity and vector
 		xPos = (this.getXVel() * this.getVector()) + this.getX();
 		yPos = (this.getYVel() * (1 - this.getVector()) + this.getY());
-		
-		//Determine whether or not the sock has reached its final destination
-		if((int)xPos == (int)this.endPosX && (int)yPos == (int)this.endPosY){
-			this.isDone = true;
-		}
 		
 		//Update the values of x and y for the sock's position
 		this.setX(xPos);
