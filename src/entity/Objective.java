@@ -22,7 +22,7 @@ import util.Audio;
  * Purpose: Acts as an objective the player must reach																		
  ************************************************************************/
 public class Objective extends Entity{
-	private static int objectiveDuration;
+	private static double objectiveDuration;
 	private long startTime;
 	private boolean playerReached = false;
 	
@@ -45,11 +45,11 @@ public class Objective extends Entity{
 	
 	private void generateNewDuration(int distance){
 		//Generate a new duration
-		objectiveDuration = distance * 3;
+		objectiveDuration = (double)(distance / 60);
 		
 		//Store start time so objective can keep track of 
 		//time limit
-		
+		this.startTime = new Date().getTime();	
 	}
 	
 	//Generates a random, new location for the objective
@@ -69,10 +69,14 @@ public class Objective extends Entity{
 		this.setX(xPos);
 		this.setY(yPos);
 		
-		//Find the distance between the player and the new objective
-		int distance = (int)Math.sqrt((xPos-this.getX())*(xPos-this.getX()) 
-				+ (yPos-this.getY())*(yPos-this.getY()));
+		//Get the player's current location
+		double playerX = Player.getInstance().getX();
+		double playerY = Player.getInstance().getY();
 		
+		//Find the distance between the player and the new objective
+		int distance = (int)Math.sqrt((playerX-this.getX())*(playerX-this.getX()) 
+				+ (playerY-this.getY())*(playerY-this.getY()));
+
 		//Generate a new duration time accordingly
 		generateNewDuration(distance);
 	}
@@ -123,6 +127,9 @@ public class Objective extends Entity{
 		//Obtain the value of the time elapsed
 		long timeElapsed = (new Date().getTime() - this.startTime)/1000;
 		
+		System.out.println("Time Remaining: " + (objectiveDuration - timeElapsed));
+		//System.out.println("Duration: " + objectiveDuration);
+		
 		//If the duration for the objective is up, apply a speed boost properly
 		//and generate a new objective in a different location
 		if(timeElapsed >= objectiveDuration){
@@ -165,11 +172,11 @@ public class Objective extends Entity{
 		}
 	}
 
-	public static int getObjectiveDuration() {
+	public static double getObjectiveDuration() {
 		return objectiveDuration;
 	}
 
-	public static void setObjectiveDuration(int objectiveDuration) {
+	public static void setObjectiveDuration(double objectiveDuration) {
 		Objective.objectiveDuration = objectiveDuration;
 	}
 
