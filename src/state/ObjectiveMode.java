@@ -88,6 +88,8 @@ public class ObjectiveMode extends State
 		for(int i = 0; i < ObjectiveMode.zombies.size(); ++i)
 			ObjectiveMode.zombies.get(i).update();
 		
+		ObjectiveMode.objective.update();
+		
 		ObjectiveMode.player.update();
 		ObjectiveMode.map.setPosition((int)ObjectiveMode.player.getX(), (int)ObjectiveMode.player.getY());
 	}
