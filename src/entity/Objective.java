@@ -45,7 +45,7 @@ public class Objective extends Entity{
 	
 	private void generateNewDuration(int distance){
 		//Generate a new duration
-		objectiveDuration = (double)(distance / 50);
+		objectiveDuration = (double)(distance / 50) * Player.getInstance().getSpeedMultiplier();
 		
 		//Store start time so objective can keep track of 
 		//time limit
@@ -156,6 +156,7 @@ public class Objective extends Entity{
 			if(objectiveReached()){
 				this.playerReached = true;
 				Player.getInstance().setSpeedMultiplier(Player.getInstance().getSpeedMultiplier() + 0.5);
+				Player.getInstance().setNumSocks(10);
 				System.out.println("Speed boost for player!");
 			}
 		}
