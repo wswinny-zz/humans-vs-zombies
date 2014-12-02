@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 import map.Map;
 import map.Tile;
 import state.StateManager;
+import util.Audio;
 
 /************************************************************
  * Zombie														
@@ -115,7 +116,7 @@ public class Zombie extends Entity {
 		double xVec = xDiff / (Math.abs(xDiff)+Math.abs(yDiff));
 		double yVec = yDiff / (Math.abs(xDiff)+Math.abs(yDiff));
 
-		if(distance(xRay, yRay, xPLoc, yPLoc) < 100000){
+		if(distance(xRay, yRay, xPLoc, yPLoc) < 700){
 			while(distance(xRay, yRay, xPLoc, yPLoc) > 16){
 				if(intersectsWithMap(xRay, yRay)) return;
 				xRay += xVec*32;
@@ -159,6 +160,7 @@ public class Zombie extends Entity {
 			double yTemp = multTempY + this.getY();
 			
 			if(intersectsWithPlayer(xTemp, yTemp)){
+				Audio.getInstance().playDeath();
 				StateManager.setState(StateManager.DEATH_STATE);
 			}
 			

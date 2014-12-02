@@ -62,14 +62,18 @@ public class HUD
 		double playerPercentX = 1-(Player.getInstance().getX()/(Map.getVisibleMap().length*size));
 		double playerPercentY = (Player.getInstance().getY()/(Map.getVisibleMap()[0].length*size));
 		g2.setColor(Color.RED);
-		g2.drawOval((int)(GamePanel.WIDTH - (playerPercentX*96)), (int)(96*playerPercentY), 2, 2);
+		g2.fillRect((int)(GamePanel.WIDTH - (playerPercentX*96)), (int)(96*playerPercentY), 5, 5);
+		g2.setColor(Color.BLACK);
+		g2.drawRect((int)(GamePanel.WIDTH - (playerPercentX*96)), (int)(96*playerPercentY), 5, 5);
 
 		//DRAW OBJECTIVE
 		Objective obj = ObjectiveMode.getObjective();
 		double objectivePercentX = 1-(obj.getX()/(Map.getVisibleMap().length*size));
 		double objectivePercentY = (obj.getY()/(Map.getVisibleMap()[0].length*size));
 		g2.setColor(Color.YELLOW);
-		g2.drawOval((int)(GamePanel.WIDTH - (objectivePercentX*96)), (int)(96*objectivePercentY), 2, 2);
+		g2.fillRect((int)(GamePanel.WIDTH - (objectivePercentX*96)), (int)(96*objectivePercentY), 5, 5);
+		g2.setColor(Color.BLACK);
+		g2.drawRect((int)(GamePanel.WIDTH - (objectivePercentX*96)), (int)(96*objectivePercentY), 5, 5);
 		
 		
 		//DRAW PLAYER STATE

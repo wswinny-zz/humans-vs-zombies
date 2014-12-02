@@ -45,7 +45,7 @@ public class Objective extends Entity{
 	
 	private void generateNewDuration(int distance){
 		//Generate a new duration
-		objectiveDuration = (double)(distance / 50);
+		objectiveDuration = (double)(distance / 50) * Player.getInstance().getSpeedMultiplier();
 		
 		//Store start time so objective can keep track of 
 		//time limit
@@ -103,8 +103,8 @@ public class Objective extends Entity{
 		double playerX = Player.getInstance().getX();
 		double playerY = Player.getInstance().getY();
 		
-		double xDistance = Math.abs(playerX - this.getX());
-		double yDistance = Math.abs(playerY - this.getY());
+		double xDistance = (Math.abs(playerX - (this.getX() + this.getImg().getWidth())));
+		double yDistance = (Math.abs(playerY - (this.getY() + this.getImg().getHeight())));
 		
 		if(xDistance <= 30 && yDistance <= 30){
 			Audio.getInstance().playObjReached();
@@ -133,17 +133,12 @@ public class Objective extends Entity{
 		//If the duration for the objective is up, apply a speed boost properly
 		//and generate a new objective in a different location
 		if(timeElapsed >= objectiveDuration){
-			if(objectiveReached()){
-				//Give the player a speed boost
-				Player.getInstance().setSpeedMultiplier(
-						Player.getInstance().getSpeedMultiplier() + 0.5);
-			}
-			else{
-				Audio.getInstance().playObjFailed();
+			//Play a negative sound effect when the player failed to reach
+			//the objective
+			Audio.getInstance().playObjFailed();
 				
-				//Give the zombies a speed boost
-				ObjectiveMode.increaseZombieSpeedMultiplier();
-			}
+			//Give the zombies a speed boost
+			ObjectiveMode.increaseZombieSpeedMultiplier();
 			
 			//Generate the new objective
 			generateNewObjective();
@@ -158,8 +153,12 @@ public class Objective extends Entity{
 		double playerY = Player.getInstance().getY();
 		
 		if(!this.playerReached){
-			if(objectiveReached())
+			if(objectiveReached()){
 				this.playerReached = true;
+				Player.getInstance().setSpeedMultiplier(Player.getInstance().getSpeedMultiplier() + 0.5);
+				Player.getInstance().setNumSocks(10);
+				System.out.println("Speed boost for player!");
+			}
 		}
 
 		//Paint the objective
