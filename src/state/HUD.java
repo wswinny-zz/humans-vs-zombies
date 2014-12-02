@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 
@@ -91,6 +92,11 @@ public class HUD
 		}
 		
 		
+		
+		long timeElapsed = (new Date().getTime() - ObjectiveMode.getObjective().getStartTime())/1000;
+		String left = String.valueOf((int)(Objective.getObjectiveDuration() - timeElapsed));
+		g2.setColor(Color.BLACK);
+		g2.drawString(left, 0, 18);
 		
 		
 		g2.dispose();		
