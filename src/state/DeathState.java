@@ -50,7 +50,7 @@ public class DeathState extends State
 	@Override
 	public void init()
 	{
-		Audio.getInstance().playDeath();
+		Audio.getInstance().startDeathMusic();
 	}
 
 	@Override
