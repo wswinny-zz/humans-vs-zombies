@@ -58,7 +58,7 @@ public class MenuState extends State
 		
 		this.selected = 0;
 		
-		//Audio.getInstance().startMenuMusic();
+		Audio.getInstance().startMenuMusic();
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public class MenuState extends State
 		
 		else if(e.getKeyCode() == KeyEvent.VK_ENTER)
 		{
-			//Audio.getInstance().stopMusic();
+			Audio.getInstance().stopMusic();
 			
 			if(this.selected == 0)
 				StateManager.setState(StateManager.OBJECTIVE_STATE);

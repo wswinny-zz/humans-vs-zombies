@@ -43,12 +43,14 @@ public class DeathState extends State
 		this.selected = 0;
 		
 		Player.reset();
+		
+		this.init();
 	}
 	
 	@Override
 	public void init()
 	{
-		
+		Audio.getInstance().playDeath();
 	}
 
 	@Override
@@ -102,6 +104,8 @@ public class DeathState extends State
 		
 		else if(e.getKeyCode() == KeyEvent.VK_ENTER)
 		{
+			Audio.getInstance().stopMusic();
+			
 			if(this.selected == 0)
 				StateManager.setState(StateManager.OBJECTIVE_STATE);
 			else if(this.selected == 1)
