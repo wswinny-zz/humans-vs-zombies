@@ -94,7 +94,7 @@ public class Audio {
 	public void startBackgroundMusic(){
 		AudioInputStream in;
 		try {
-			in = AudioSystem.getAudioInputStream(Audio.class.getResource("/newBg.wav"));
+			in = AudioSystem.getAudioInputStream(Audio.class.getResource("/background.wav"));
 			startMusic(in);
 		} catch (UnsupportedAudioFileException | IOException e) {
 			System.out.println("\nError: Background music failed to play.\n");
