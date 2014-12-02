@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import util.Audio;
 import map.Map;
 import map.Tile;
 
@@ -208,6 +209,7 @@ public class Player extends Entity {
 			//System.out.println(mousePosX + "," + mousePosY + " " + this.getX() + "," + this.getY());
 			this.socks.add(new Sock((int)mousePosX, (int)mousePosY, (int)this.getX(), (int)this.getY()));
 			numSocks--;
+			Audio.getInstance().playSockThrow();
 		}
 	}
 

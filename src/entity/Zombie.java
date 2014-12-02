@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 import map.Map;
 import map.Tile;
 import state.StateManager;
+import util.Audio;
 
 /************************************************************
  * Zombie														
@@ -159,6 +160,7 @@ public class Zombie extends Entity {
 			double yTemp = multTempY + this.getY();
 			
 			if(intersectsWithPlayer(xTemp, yTemp)){
+				Audio.getInstance().playDeath();
 				StateManager.setState(StateManager.DEATH_STATE);
 			}
 			
