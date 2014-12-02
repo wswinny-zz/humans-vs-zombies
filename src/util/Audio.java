@@ -106,10 +106,8 @@ public class Audio {
 		try {
 			//If a song is already open, close it
 			if(currentMusic.isActive()){
-				currentMusic.close();
+				currentMusic.stop();
 			}
-			
-			 currentMusic = AudioSystem.getClip();
 			
 			//Start the new song and allow it to loop
 			currentMusic.open(in);
