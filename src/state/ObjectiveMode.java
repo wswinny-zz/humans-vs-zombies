@@ -56,6 +56,12 @@ public class ObjectiveMode extends State
 		for(Zombie z: ObjectiveMode.zombies)
 			z.setSpeedMultiplier(z.getSpeedMultiplier() + 0.5);
 	}
+	
+	public static void addZombies(int number)
+	{
+		for(int i = 0; i < number; ++i)
+			ObjectiveMode.zombies.add(new Zombie());
+	}
 
 	@Override 
 	public void init()
