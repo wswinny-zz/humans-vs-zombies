@@ -120,15 +120,13 @@ public class Objective extends Entity{
 		//If the player has reached the objective,
 		//generate a new objective in a different location
 		if(playerReached){
+			ObjectiveMode.addZombies(25);
 			generateNewObjective();
 			this.playerReached = false;
 		}
 		
 		//Obtain the value of the time elapsed
 		long timeElapsed = (new Date().getTime() - this.startTime)/1000;
-		
-		//System.out.println("Time Remaining: " + (objectiveDuration - timeElapsed));
-		//System.out.println("Duration: " + objectiveDuration);
 		
 		//If the duration for the objective is up, apply a speed boost properly
 		//and generate a new objective in a different location
