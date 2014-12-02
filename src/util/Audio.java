@@ -21,7 +21,6 @@ public class Audio {
 	private static Audio instance = null;
 	private Clip currentMusic;
 	
-	
 	//Private Constructor
 	private Audio(){
 		try {
@@ -36,11 +35,6 @@ public class Audio {
 			instance = new Audio();
 		}
 		return instance;
-	}
-	
-	//Plays a footstep sound effect
-	public void playFootStep(){
-		
 	}
 	
 	//Plays a flying sock sound effect
@@ -88,23 +82,6 @@ public class Audio {
 		}
 	}
 	
-	//Plays a "raise up" effect when speed boost is activated
-	public void playSpeedBoostEffect(){
-		AudioInputStream in;
-		try {
-			in = AudioSystem.getAudioInputStream(Audio.class.getResource("/spdBoost.wav"));
-			startEffect(in);
-		} catch (UnsupportedAudioFileException | IOException e) {
-			System.out.println("\nError: objFailed sound effect failed to play.\n");
-		}
-	}
-	
-	//Plays a zombie grunt relative to the distance from the
-	//player
-	public void playZombieGrunt(double distance){
-			
-	}
-	
 	//Plays a sound effect when the player dies (loses)
 	public void playDeath(){
 		AudioInputStream in;
@@ -123,7 +100,7 @@ public class Audio {
 			in = AudioSystem.getAudioInputStream(Audio.class.getResource("/newBg.wav"));
 			startMusic(in);
 		} catch (UnsupportedAudioFileException | IOException e) {
-			System.out.println("\nError: Death music failed to play.\n");
+			System.out.println("\nError: Background music failed to play.\n");
 		}
 	}
 	
