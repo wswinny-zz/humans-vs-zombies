@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import util.Audio;
 import map.Map;
 import entity.Objective;
 import entity.Player;
@@ -62,10 +63,12 @@ public class ObjectiveMode extends State
 		ObjectiveMode.map.loadTileset("/tilesSet.png");
 		ObjectiveMode.map.loadMap("/map.map");
 		
-		for(int i = 0; i < 100; ++i)
+		for(int i = 0; i < 500; ++i)
 			ObjectiveMode.zombies.add(new Zombie());
 		
 		ObjectiveMode.objective = new Objective();
+		
+		Audio.getInstance().startBackgroundMusic();
 	}
 
 	@Override

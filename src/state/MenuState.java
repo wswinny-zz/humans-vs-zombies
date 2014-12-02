@@ -117,8 +117,6 @@ public class MenuState extends State
 		
 		else if(e.getKeyCode() == KeyEvent.VK_ENTER)
 		{
-			Audio.getInstance().stopMusic();
-			
 			if(this.selected == 0)
 				StateManager.setState(StateManager.OBJECTIVE_STATE);
 			else if(this.selected == 1)
