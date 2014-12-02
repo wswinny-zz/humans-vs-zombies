@@ -66,8 +66,8 @@ public class Objective extends Entity{
 		}	
 				
 		//Set the x and y position of the objective
-		this.setX(xPos);
-		this.setY(yPos);
+		this.setX(xPos + 16);
+		this.setY(yPos + 16);
 		
 		//Get the player's current location
 		double playerX = Player.getInstance().getX();
