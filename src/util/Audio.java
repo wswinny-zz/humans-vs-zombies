@@ -1,8 +1,5 @@
 package util;
 
-
-import game.Game;
-
 import java.io.IOException;
 
 import javax.sound.sampled.AudioInputStream;
@@ -112,6 +109,8 @@ public class Audio {
 				currentMusic.close();
 			}
 			
+			 currentMusic = AudioSystem.getClip();
+			
 			//Start the new song and allow it to loop
 			currentMusic.open(in);
 			currentMusic.start();
@@ -143,7 +142,7 @@ public class Audio {
 	public void startMenuMusic(){
 		AudioInputStream in;
 		try {
-			in = AudioSystem.getAudioInputStream(Audio.class.getResource("/newTitle.wav"));
+			in = AudioSystem.getAudioInputStream(Audio.class.getResource("/title.wav"));
 			startMusic(in);
 		} catch (UnsupportedAudioFileException | IOException e) {
 			System.out.println("\nError: Menu music failed to play.\n");
@@ -154,7 +153,7 @@ public class Audio {
 	public void startDeathMusic(){
 		AudioInputStream in;
 		try {
-			in = AudioSystem.getAudioInputStream(Audio.class.getResource("/newDeath.wav"));
+			in = AudioSystem.getAudioInputStream(Audio.class.getResource("/death.wav"));
 			startMusic(in);
 		} catch (UnsupportedAudioFileException | IOException e) {
 			System.out.println("\nError: Death music failed to play.\n");

@@ -127,7 +127,7 @@ public class Objective extends Entity{
 		//Obtain the value of the time elapsed
 		long timeElapsed = (new Date().getTime() - this.startTime)/1000;
 		
-		System.out.println("Time Remaining: " + (objectiveDuration - timeElapsed));
+		//System.out.println("Time Remaining: " + (objectiveDuration - timeElapsed));
 		//System.out.println("Duration: " + objectiveDuration);
 		
 		//If the duration for the objective is up, apply a speed boost properly
@@ -157,7 +157,7 @@ public class Objective extends Entity{
 				this.playerReached = true;
 				Player.getInstance().setSpeedMultiplier(Player.getInstance().getSpeedMultiplier() + 0.5);
 				Player.getInstance().setNumSocks(10);
-				System.out.println("Speed boost for player!");
+				//System.out.println("Speed boost for player!");
 			}
 		}
 
