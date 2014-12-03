@@ -20,8 +20,8 @@ public class Tile
 	
 	public Tile(BufferedImage image, int type)
 	{
-		this.image = image;
-		this.type = type;
+		this.image = image; //set tile image
+		this.type = type; //set type of tile
 	}
 	
 	public BufferedImage getImage()

@@ -15,8 +15,10 @@ import util.Audio;
 
 public class DeathState extends State
 {
+	//background image
 	private BufferedImage background;
 	
+	//images for the "buttons"
 	private BufferedImage replay_light;
 	private BufferedImage replay_dark;
 	private BufferedImage quit_light;
@@ -26,6 +28,7 @@ public class DeathState extends State
 	
 	public DeathState()
 	{
+		//gets all the images as resources
 		try
 		{
 			this.background = ImageIO.read(MenuState.class.getResourceAsStream("/death_background.png"));
@@ -50,16 +53,18 @@ public class DeathState extends State
 	@Override
 	public void init()
 	{
-		Audio.getInstance().startDeathMusic();
+		Audio.getInstance().startDeathMusic(); //starts audio
 	}
 
 	@Override
 	public void draw(Graphics g)
 	{
-		g.clearRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
+		g.clearRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT); //clears the screem
 		
+		//draw the background
 		g.drawImage(this.background, (GamePanel.WIDTH / 2) - (this.background.getWidth() / 2), 0, null);
 		
+		//highlight which ever button is selected
 		if(this.selected == 0)
 			g.drawImage(this.replay_light, (GamePanel.WIDTH / 2) - (this.replay_light.getWidth() / 2), GamePanel.HEIGHT - 70, null);
 		else
@@ -86,6 +91,7 @@ public class DeathState extends State
 	@Override
 	public void keyPressed(KeyEvent e)
 	{
+		//if the down key is pressed pick the next option
 		if(e.getKeyCode() == KeyEvent.VK_DOWN)
 		{
 			this.selected++;
@@ -94,6 +100,7 @@ public class DeathState extends State
 			Audio.getInstance().playMenuEffect();
 		}
 		
+		//if the up key is pressed pick the previous option
 		else if(e.getKeyCode() == KeyEvent.VK_UP)
 		{
 			this.selected--;
@@ -102,6 +109,7 @@ public class DeathState extends State
 			Audio.getInstance().playMenuEffect();
 		}
 		
+		//if enter key is pressed either quit or reset
 		else if(e.getKeyCode() == KeyEvent.VK_ENTER)
 		{
 			if(this.selected == 0)

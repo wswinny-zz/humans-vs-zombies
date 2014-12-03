@@ -24,14 +24,15 @@ public class ObjectiveMode extends State
 	private static Map map;
 	
 	private static Player player;
-	private static ArrayList<Zombie> zombies;
-	private static Objective objective;
+	private static ArrayList<Zombie> zombies; 
+	private static Objective objective; 
 	
-	private static HUD hud;
+	private static HUD hud; 
 	
+	//inits the state
 	public ObjectiveMode()
 	{
-		ObjectiveMode.map = new Map(64);
+		ObjectiveMode.map = new Map(64); //sets the map tile size to 64
 		ObjectiveMode.player = Player.getInstance();
 		ObjectiveMode.zombies = new ArrayList<Zombie>();
 		
@@ -40,23 +41,27 @@ public class ObjectiveMode extends State
 		this.init();
 	}
 	
+	//gets the objective
 	public static Objective getObjective()
 	{
 		return ObjectiveMode.objective;
 	}
 	
+	//decreases the speed of all zombies
 	public static void decreaseZombieSpeedMultiplier()
 	{
 		for(Zombie z: ObjectiveMode.zombies)
 			z.setSpeedMultiplier(z.getSpeedMultiplier() - 0.5);
 	}
 	
+	//increases the speed of all zombies
 	public static void increaseZombieSpeedMultiplier()
 	{
 		for(Zombie z: ObjectiveMode.zombies)
 			z.setSpeedMultiplier(z.getSpeedMultiplier() + 0.5);
 	}
 	
+	//adds zombies to the map
 	public static void addZombies(int number)
 	{
 		for(int i = 0; i < number; ++i)
@@ -66,27 +71,31 @@ public class ObjectiveMode extends State
 	@Override 
 	public void init()
 	{
-		ObjectiveMode.map.loadTileset("/tilesSet.png");
-		ObjectiveMode.map.loadMap("/map.map");
+		ObjectiveMode.map.loadTileset("/tilesSet.png"); //loads the tileset
+		ObjectiveMode.map.loadMap("/map.map"); //loads a specific map
 		
+		//adds 500 zombies to the map
 		for(int i = 0; i < 500; ++i)
 			ObjectiveMode.zombies.add(new Zombie());
 		
 		ObjectiveMode.objective = new Objective();
 		
-		Audio.getInstance().startBackgroundMusic();
+		Audio.getInstance().startBackgroundMusic(); //starts the background music
 	}
 
 	@Override
 	public void draw(Graphics g)
 	{
-		ObjectiveMode.map.draw(g);
+		ObjectiveMode.map.draw(g); //draws the map
 		
+		//draws all zombies
 		for(int i = 0; i < ObjectiveMode.zombies.size(); ++i)
 			ObjectiveMode.zombies.get(i).draw(g);
 		
+		//draws the objective
 		ObjectiveMode.objective.draw(g);
 		
+		//draws the player and hud
 		ObjectiveMode.player.draw(g);
 		ObjectiveMode.hud.draw(g);
 	}
@@ -94,15 +103,22 @@ public class ObjectiveMode extends State
 	@Override
 	public void update()
 	{
+		//update the zombies
 		for(int i = 0; i < ObjectiveMode.zombies.size(); ++i)
 			ObjectiveMode.zombies.get(i).update();
 		
+		//update the objective
 		ObjectiveMode.objective.update();
 		
+		//update the player and map position
 		ObjectiveMode.player.update();
 		ObjectiveMode.map.setPosition((int)ObjectiveMode.player.getX(), (int)ObjectiveMode.player.getY());
 	}
 
+	/*
+	 * Action Listeners
+	 */
+	
 	@Override
 	public void mouseTriggered(MouseEvent e)
 	{

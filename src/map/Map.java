@@ -28,6 +28,7 @@ public class Map
 	private int x; //x pixel of map image
 	private int y; //y pixel of map image
 	
+	//map boundaries to check if the player is trying to leave the map
 	private int xMin;
 	private int xMax;
 	private int yMin;
@@ -44,8 +45,8 @@ public class Map
 	private int colOffset;
 	private int rowOffset;
 	
-	private ArrayList <BufferedImage> tiles;
-	private static Tile[][] visibleMap;
+	private ArrayList <BufferedImage> tiles; //tiles in the tile set
+	private static Tile[][] visibleMap; //tiles on the map
 	
 	public Map(int tileSize)
 	{
@@ -54,8 +55,8 @@ public class Map
 		this.xMin = 0;
 		this.yMin = 0;
 		
-		this.numRowsToDraw = GamePanel.HEIGHT / tileSize + 2;
-		this.numColsToDraw = GamePanel.WIDTH / tileSize + 2;
+		this.numRowsToDraw = GamePanel.HEIGHT / tileSize + 2; //number of visible rows
+		this.numColsToDraw = GamePanel.WIDTH / tileSize + 2; //number of visible columns
 	}
 	
 	public static Tile[][] getVisibleMap()
@@ -68,9 +69,10 @@ public class Map
 		return Map.tileSize;
 	}
 	
+	//loads the tile set and splits it up
 	public void loadTileset(String tileSetResource)
 	{
-		BufferedImage tileset = null;
+		BufferedImage tileset = null; //tile set image
 		try
 		{
 			tileset = ImageIO.read(Map.class.getResourceAsStream(tileSetResource));
@@ -86,10 +88,9 @@ public class Map
 		{
 			for(int y = 0; y < tileset.getWidth(); y += Map.tileSize)
 			{
-				System.out.println("Y: " + y + " X: " + x);
 				try
 				{
-					this.tiles.add(tileset.getSubimage(y, x, Map.tileSize, Map.tileSize));
+					this.tiles.add(tileset.getSubimage(y, x, Map.tileSize, Map.tileSize)); //gets tile image at x, y
 				}
 				catch(Exception e)
 				{
@@ -99,9 +100,10 @@ public class Map
 		}
 	}
 	
+	//loads the map and parses it
 	public void loadMap(String mapFileResource)
 	{
-		BufferedReader br;
+		BufferedReader br; //map file reader
 		try
 		{
 			InputStream in = getClass().getResourceAsStream(mapFileResource);
@@ -109,8 +111,8 @@ public class Map
 			
 			String [] WH = br.readLine().split(",");
 			
-			this.numCols = Integer.parseInt(WH[0]);
-			this.numRows = Integer.parseInt(WH[1]);
+			this.numCols = Integer.parseInt(WH[0]); //width of the map
+			this.numRows = Integer.parseInt(WH[1]); //height of the map
 			
 			this.xMax = (this.numCols * Map.tileSize) - GamePanel.WIDTH;
 			this.yMax = (this.numRows * Map.tileSize) - GamePanel.HEIGHT;
@@ -128,6 +130,7 @@ public class Map
 				{
 					try
 					{
+						//makes a tile by getting the tile image from the tile array
 						Map.visibleMap[row][col] = new Tile(this.tiles.get(Integer.parseInt(numbers[col].split(":")[0]) - 1), Integer.parseInt(numbers[col].split(":")[1]));
 					}
 					catch(Exception e)
@@ -143,6 +146,7 @@ public class Map
 		}
 	}
 	
+	//draws the visible part of the map
 	public void draw(Graphics g)
 	{
 		for(int row = this.rowOffset, y = 0; row < this.rowOffset + this.numRowsToDraw; ++row, y += Map.tileSize)
@@ -157,6 +161,7 @@ public class Map
 				
 				try
 				{
+					//draws the tile at row, col
 					g.drawImage(Map.visibleMap[row][col].getImage(), x - (this.x % Map.tileSize), y - (this.y % Map.tileSize), null);
 				}
 				catch(Exception e) 
@@ -167,17 +172,19 @@ public class Map
 		}
 	}
 	
+	//sets the position of the map based on x and y being the center
 	public void setPosition(int x, int y)
 	{
 		this.x = x - (GamePanel.WIDTH / 2);
 		this.y = y - (GamePanel.HEIGHT / 2);
 		
-		this.checkBounds();
+		this.checkBounds(); //checks the bounds of the map to make sure that the player is not trying to walk out of bounds
 		
 		this.colOffset = this.x / Map.tileSize;
 		this.rowOffset = this.y / Map.tileSize;
 	}
 	
+	//checks thet the player is not trying to walk off the map
 	public void checkBounds()
 	{
 		if(this.x <= this.xMin)

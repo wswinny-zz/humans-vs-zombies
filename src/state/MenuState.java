@@ -23,6 +23,7 @@ public class MenuState extends State
 {
 	private BufferedImage background;
 	
+	//the buttons on the menu
 	private BufferedImage play_light;
 	private BufferedImage play_dark;
 	private BufferedImage options_light;
@@ -40,6 +41,7 @@ public class MenuState extends State
 	@Override
 	public void init()
 	{
+		//inits all the images
 		try
 		{
 			this.background = ImageIO.read(MenuState.class.getResourceAsStream("/background.png"));
@@ -64,10 +66,14 @@ public class MenuState extends State
 	@Override
 	public void draw(Graphics g)
 	{
+		//clears the screen
 		g.clearRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
 		
+		//draws the background
 		g.drawImage(this.background, (GamePanel.WIDTH / 2) - (this.background.getWidth() / 2), 0, null);
 		
+		
+		//highlight the button that is selected
 		if(this.selected == 0)
 			g.drawImage(this.play_light, (GamePanel.WIDTH / 2) - (this.play_light.getWidth() / 2), GamePanel.HEIGHT - 100, null);
 		else
@@ -99,6 +105,7 @@ public class MenuState extends State
 	@Override
 	public void keyPressed(KeyEvent e)
 	{
+		//if the down arraw is pressed highlight the next option
 		if(e.getKeyCode() == KeyEvent.VK_DOWN)
 		{
 			this.selected++;
@@ -107,6 +114,7 @@ public class MenuState extends State
 			Audio.getInstance().playMenuEffect();
 		}
 		
+		//if the up arrow is pressed highlight the previous option
 		else if(e.getKeyCode() == KeyEvent.VK_UP)
 		{
 			this.selected--;
@@ -115,6 +123,7 @@ public class MenuState extends State
 			Audio.getInstance().playMenuEffect();
 		}
 		
+		//launch the game or quit depending on the option selected
 		else if(e.getKeyCode() == KeyEvent.VK_ENTER)
 		{
 			if(this.selected == 0)
