@@ -45,14 +45,15 @@ public class HUD
 		
 		
 
-
+		//draw sock
 		g2.drawImage(sock, GamePanel.WIDTH-64, GamePanel.HEIGHT-32, sock.getWidth(), sock.getHeight(), null);
 
+		//Print the number of socks
 		g2.setFont(new Font("Arial", Font.BOLD, 16));
 		g2.setColor(Color.BLACK);
 		g2.drawString("x"+Player.getInstance().getNumSocks(), GamePanel.WIDTH-32, GamePanel.HEIGHT - 12);
 		
-		
+		//Draw the minimap slightly transparent
 		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .75f));
 		g2.drawImage(miniMap, GamePanel.WIDTH-96, 0, 96, 96, null);
 		g2.setColor(Color.BLACK);
@@ -92,8 +93,9 @@ public class HUD
 		}
 		
 		
-		
+		//Get the time before objective is gone
 		long timeElapsed = (new Date().getTime() - ObjectiveMode.getObjective().getStartTime())/1000;
+		//Show on screen as black 
 		String left = String.valueOf((int)(Objective.getObjectiveDuration() - timeElapsed));
 		g2.setColor(Color.BLACK);
 		g2.drawString(left, 0, 18);
@@ -104,13 +106,15 @@ public class HUD
 	
 	
 	public boolean intersectsWithMap(double xPos,double yPos){
+		
 		Tile[][] tiles = Map.getVisibleMap();
 		int tileWidth = tiles[0][0].getImage().getWidth();
 		
-		
+		//Translate to world coordinates
 		int xTile = (int)(xPos/tileWidth);
 		int yTile = (int)(yPos/tileWidth);
 		
+		//check if zombie blocked
 		if(xTile < 0 || yTile < 0) return true;
 		if(xTile >= tiles[0].length || yTile >= tiles.length) return true;
 		if(tiles[yTile][xTile].getTileType() == Tile.ZOMBIE_BLOCKED) return true;
