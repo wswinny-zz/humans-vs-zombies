@@ -24,6 +24,7 @@ public class GamePanel extends JPanel{
 	public static final int SCALE = 2;
 	public static final int FPS = 60;
 	
+	//Constructor that creates a new Game Panel
 	public GamePanel(){
 		this.setPreferredSize(new Dimension((WIDTH * SCALE), (HEIGHT * SCALE)));
 		this.img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
@@ -40,6 +41,7 @@ public class GamePanel extends JPanel{
 		stateManager.draw(this.img.getGraphics());
 	}
 	
+	//Update
 	public void update(){
 		stateManager.update();
 	}

@@ -28,6 +28,7 @@ public class Game {
 		new Game();
 	}
 	
+	//Constructor that sets up the main frame for the game
 	public Game(){
 		//Set up the properties for the main frame
 		frame = new JFrame("HVZ");
@@ -47,8 +48,6 @@ public class Game {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		this.gamePanel.gameLoop();
-				
-		//Audio.getInstance().startMenuMusic();
 	}
 
 }

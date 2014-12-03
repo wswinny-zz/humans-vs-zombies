@@ -26,7 +26,8 @@ public class Audio {
 			System.out.println("\nError: Problem while creating clip.\n");
 		}
 	}
-	
+
+	//Since this class is a singleton, this function is needed
 	public static Audio getInstance(){
 		if(instance == null){
 			instance = new Audio();
