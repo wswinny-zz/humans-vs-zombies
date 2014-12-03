@@ -5,7 +5,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
 /************************************************************************
  * Class: StateManager														
@@ -14,7 +13,7 @@ import java.awt.event.MouseMotionListener;
  * Purpose: The manager of all the states in the game such as the
  * 			MenuState or the ObjectiveMode																	
  ************************************************************************/
-public class StateManager implements KeyListener, MouseListener, MouseMotionListener
+public class StateManager implements KeyListener, MouseListener
 {
 	public static final int MENU_STATE = 0;
 	public static final int OBJECTIVE_STATE = 1;
@@ -59,16 +58,6 @@ public class StateManager implements KeyListener, MouseListener, MouseMotionList
 		{
 			System.out.println("ERROR: State Manager failed to update current state.");
 		}
-	}
-	
-	public void mouseDragged(MouseEvent e)
-	{
-		StateManager.currentState.mouseTriggered(e);
-	}
-
-	public void mouseMoved(MouseEvent e)
-	{
-		StateManager.currentState.mouseTriggered(e);
 	}
 
 	public void mouseClicked(MouseEvent e)
