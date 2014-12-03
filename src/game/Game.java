@@ -32,7 +32,7 @@ public class Game {
 		//Set up the properties for the main frame
 		frame = new JFrame("HVZ");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(true);
+		frame.setResizable(false);
 		frame.setSize(800, 600);
 				
 		//Set the icon image for the application
@@ -46,7 +46,6 @@ public class Game {
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		frame.setResizable(false);
 		this.gamePanel.gameLoop();
 				
 		//Audio.getInstance().startMenuMusic();
