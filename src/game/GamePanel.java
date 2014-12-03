@@ -32,7 +32,6 @@ public class GamePanel extends JPanel{
 		
 		//Add a mouse listener and key listener to the panel
 		this.addMouseListener(this.stateManager);
-		this.addMouseMotionListener(this.stateManager);
 		this.addKeyListener(this.stateManager);
 	}
 	
