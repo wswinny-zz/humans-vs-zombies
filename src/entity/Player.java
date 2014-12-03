@@ -84,7 +84,7 @@ public class Player extends Entity {
 		ArrayList<Sock> removeList = new ArrayList<Sock>();
 		for(Sock s : socks){
 			s.update();
-			if(s.isDone() == true) removeList.add(s);
+			if(s.getIsDone() == true) removeList.add(s);
 		}
 		
 		for(Sock s : removeList){

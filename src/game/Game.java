@@ -46,6 +46,7 @@ public class Game {
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		frame.setResizable(false);
 		this.gamePanel.gameLoop();
 				
 		//Audio.getInstance().startMenuMusic();

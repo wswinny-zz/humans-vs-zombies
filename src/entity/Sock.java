@@ -109,11 +109,11 @@ public class Sock extends Entity{
 		this.setY(yPos);
 	}
 
-	public boolean isDone() {
-		return isDone;
+	public boolean getIsDone() {
+		return this.isDone;
 	}
 
-	public void setDone(boolean isDone) {
+	public void setIsDone(boolean isDone) {
 		this.isDone = isDone;
 	}
 
