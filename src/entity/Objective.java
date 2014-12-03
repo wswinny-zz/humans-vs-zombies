@@ -60,14 +60,14 @@ public class Objective extends Entity{
 		double yPos = random.nextInt((Map.getVisibleMap()[0].length*Map.getTileSize()));
 
 		//if it intersected with a non-reachable block, try again
-		while(intersectsWithMap(xPos, yPos)){
+		while(intersectsWithMap(xPos+16, yPos+16)){
 			xPos = random.nextInt((Map.getVisibleMap()[0].length*Map.getTileSize()));
 			yPos = random.nextInt((Map.getVisibleMap()[0].length*Map.getTileSize()));
 		}	
 				
 		//Set the x and y position of the objective
-		this.setX(xPos + 16);
-		this.setY(yPos + 16);
+		this.setX(xPos);
+		this.setY(yPos);
 		
 		//Get the player's current location
 		double playerX = Player.getInstance().getX();
@@ -87,8 +87,8 @@ public class Objective extends Entity{
 		int tileWidth = tiles[0][0].getImage().getWidth();
 		
 		
-		int xTile = (int)(xPos/tileWidth);
-		int yTile = (int)(yPos/tileWidth);
+		int xTile = (int)((xPos)/tileWidth);
+		int yTile = (int)((yPos)/tileWidth);
 		
 		if(xTile < 0 || yTile < 0) return true;
 		if(xTile >= tiles[0].length || yTile >= tiles.length) return true;
