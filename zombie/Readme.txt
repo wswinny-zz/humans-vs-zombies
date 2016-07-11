@@ -1,1 +1,0 @@
-Curt - cjc83486 http://opengameart.org/content/zombie-rpg-sprites
